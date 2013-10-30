@@ -13,4 +13,4 @@
 
 # Author
 
-Author:: OSU Open Source Lab (<systems@osuosl.org>)
+Author:: Oregon State University (<systems@osuosl.org>)
