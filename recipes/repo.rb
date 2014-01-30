@@ -21,6 +21,6 @@
 yum_repository "nginx" do
   repo_name "nginx"
   description "nginx repo" 
-  url "http://nginx.org/packages/centos/6/$basearch/"
-  action :add
+  baseurl "http://nginx.org/packages/centos/6/$basearch/"
+  action :create
 end
