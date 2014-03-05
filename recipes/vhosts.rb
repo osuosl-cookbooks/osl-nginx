@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 include_recipe "osl-nginx::default"
-include_recipe "osl-nginx::munin"
 
 #Set up log directories
 node['osl-nginx']['hostsites']['enabled'].each do |ensite|
