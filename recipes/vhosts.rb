@@ -33,20 +33,22 @@ node['osl-nginx']['hostsites']['enabled'].each do |ensite|
         mode 00644
         action :create
     end
-    template "#{node['nginx']['dir']}/sites-available/#{ensite}.conf" do
-        source "#{node['osl-nginx']['hostname']}/#{ensite}.conf.erb"
+    cookbook_file "#{node['nginx']['dir']}/sites-available/#{ensite}.conf" do
+        source "#{node['osl-nginx']['hostname']}/#{ensite}.conf"
         mode "0644"
         owner "root"
         group "root"
         notifies :reload, "service[nginx]"
     end
-    nginx_site ensite do
+    nginx_site "#{ensite}.conf" do
         action :enable
     end
 end
 
-node['osl-nginx']['hostsites']['disabled'].each do |dissite| 
-    nginx_site dissite do
-        action :disable
+if node['osl-nginx']['hostsites']['disabled'] then
+    node['osl-nginx']['hostsites']['disabled'].each do |dissite| 
+        nginx_site "#{dissite}.conf" do
+            action :disable
+        end
     end
-end
+end 
