@@ -19,3 +19,9 @@ suites:
   - name: vhost
     run_list:
       - recipe[osl-nginx::vhosts]
+    attributes:
+        osl-nginx:
+            hostname: test
+            hostsites:
+                enabled: 
+                    - test
