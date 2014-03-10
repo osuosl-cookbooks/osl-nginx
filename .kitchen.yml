@@ -1,6 +1,8 @@
 ---
 driver:
   name: vagrant
+  network:
+    - ["forwarded_port", {guest: 80, host: 8080}]
 
 provisioner:
   name: chef_solo
@@ -19,3 +21,9 @@ suites:
   - name: vhost
     run_list:
       - recipe[osl-nginx::vhosts]
+    attributes:
+        osl-nginx:
+            hostname: test
+            hostsites:
+                enabled: 
+                    - test

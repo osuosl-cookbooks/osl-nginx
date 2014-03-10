@@ -4,6 +4,8 @@ cookbook "monitoring", github: "osuosl-cookbooks/monitoring", protocol: :ssh
 cookbook "aliases", github: "osuosl-cookbooks/aliases", protocol: :ssh
 cookbook "osl-munin", github: "osuosl-cookbooks/osl-munin", protocol: :ssh
 
+cookbook "yum", "< 3"
+
 site :opscode
 
 metadata
