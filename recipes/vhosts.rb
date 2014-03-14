@@ -18,23 +18,23 @@
 #
 include_recipe "osl-nginx::default"
 
-node['osl-nginx']['hostsites']['enabled'].each do |key, site|
-   log_dir = site.fetch("directory", "#{node['osl-nginx']['hostsites']['default_root']}/#{site.fetch('name')}") 
-    directory log_dir do 
+node['osl-nginx']['hostsites']['vhosts'].each do |key, site|
+   web_root = site.fetch("directory", "#{node['osl-nginx']['hostsites']['default_root']}/#{key}") 
+    directory web_root do 
         owner "root"
         group "root"
         mode 00644
         recursive true
         action :create
     end
-    directory "#{node['osl-nginx']['hostsites']['log_dir']}/#{key}/access" do 
+    directory "#{node['nginx']['log_dir']}/#{key}/access" do 
         owner "root"
         group "root"
         mode 00644
         recursive true
         action :create
     end
-    directory "#{node['osl-nginx']['hostsites']['log_dir']}/#{key}/error" do 
+    directory "#{node['nginx']['log_dir']}/#{key}/error" do 
         owner "root"
         group "root"
         mode 00644
@@ -47,7 +47,9 @@ node['osl-nginx']['hostsites']['enabled'].each do |key, site|
             owner "root"
             group "root"
             mode 0644
-            notifies :reload, "service[nginx]"
+            if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{key}.conf")
+                notifies :reload, "service[nginx]"
+            end
         end
     end
     template "#{node['nginx']['dir']}/sites-available/#{key}.conf" do
@@ -55,22 +57,22 @@ node['osl-nginx']['hostsites']['enabled'].each do |key, site|
         owner "root"
         group "root"
         mode 0644
-        notifies :reload, "service[nginx]"
         variables({ 
-            :vhost => site,
             :server_name => key,
-            :server_aliases => site.fetch("aliases"),
-            :directory => log_dir,
-            :custom_config => vhost_include
+            :server_aliases => site.fetch("aliases", []),
+            :directory => web_root,
+            :custom_config => vhost_include,
+            :custom_logs => site.has_key?("custom_logs")
         })
+        if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{key}.conf")
+            notifies :reload, "service[nginx]"
+        end
     end 
-    nginx_site "#{site.fetch("name")}.conf" do
-        action :enable
+    nginx_site "#{key}.conf" do
+        if site.has_key?("disable") then
+            enable false
+        else 
+            enable true
+        end
     end
 end 
-
-node['osl-nginx']['hostsites']['disabled'].each do
-    nginx_site "#{site['name']}" do
-        action :disable
-    end
-end
