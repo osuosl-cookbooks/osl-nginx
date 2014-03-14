@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: osl-nginx
-# Recipe:: default
+# Recipe:: logrotate 
 #
 # Copyright (C) 2013 Oregon State University
 # 
@@ -16,8 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "firewall::http"
+include_recipe "logrotate"
 
-node['osl-nginx']['recipes'].each do |recipe|
-    include_recipe "nginx::#{recipe}"
+logrotate_app 'nginx' do
+    path "#{node['nginx']['log_dir']}/*/*/*.log" 
+    frequency "daily"
+    postrotate "[ ! -f #{node['nginx']['pid']} ] || kill -USR1 `cat #{node['nginx']['pid']}`" 
 end
