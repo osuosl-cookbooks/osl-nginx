@@ -14,20 +14,14 @@ suites:
   - name: default
     run_list:
       - recipe[osl-nginx::default]
-    attributes:
   - name: vhost
     run_list:
       - recipe[osl-nginx::vhosts]
       - recipe[osl-nginx::logrotate]
+  - name: lwrp
+    run_list:
+        - recipe[osl-nginx::project_test]
+        - recipe[osl-nginx::logrotate]
     attributes:
         osl-nginx:
-            hostname: test
-            hostsites:
-                vhosts:
-                    test.example.org:
-                        custom_config: true
-                        custom_logs: true
-                        directory: "/var/log/google/yes"
-                        aliases:
-                            - test.hosting.com
-                            - cloud.bees.com
+            hostname: "test"
