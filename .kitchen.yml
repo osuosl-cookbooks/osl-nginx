@@ -1,21 +1,23 @@
 ---
 driver:
   name: vagrant
+  network:
+    - ["forwarded_port", {guest: 80, host: 8080}]
 
 provisioner:
   name: chef_solo
 
 platforms:
   - name: centos-6.5
-    driver:
-      box: osuosl-centos-6.5
-      box_url: http://vagrant.osuosl.org/centos-6-20140121.box
 
 suites:
   - name: default
     run_list:
       - recipe[osl-nginx::default]
-    attributes:
   - name: vhost
     run_list:
-      - recipe[osl-nginx::vhosts]
+        - recipe[osl-nginx::project_test]
+        - recipe[osl-nginx::logrotate]
+    attributes:
+        osl-nginx:
+            hostname: "test"

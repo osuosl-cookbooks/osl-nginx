@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: osl-nginx
-# Recipe:: repo
+# Recipe:: logrotate 
 #
 # Copyright (C) 2013 Oregon State University
 # 
@@ -16,11 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe "logrotate"
 
-# Configure the nginx yum repository
-yum_repository "nginx" do
-  repo_name "nginx"
-  description "nginx repo" 
-  baseurl "http://nginx.org/packages/centos/6/$basearch/"
-  action :create
+logrotate_app 'nginx' do
+    path "#{node['nginx']['log_dir']}/*/*/*.log" 
+    frequency "daily"
+    postrotate "[ ! -f #{node['nginx']['pid']} ] || kill -USR1 `cat #{node['nginx']['pid']}`" 
 end
