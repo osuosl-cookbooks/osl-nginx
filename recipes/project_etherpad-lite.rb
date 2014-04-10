@@ -22,9 +22,9 @@ nginx_app "etherpad-lite.osuosl.org" do
 end
 
 nginx_app "etherpad-lite.osuosl.org-back" do
-    template "etherpad/etherpad-lite.osuosl.org-back.erb" do
+    template "etherpad/etherpad-lite.osuosl.org-back.erb"
 end
     
 nginx_app "nginx_status" do
-    template "etherpad/nginx_status.erb" do
+    template "etherpad/nginx_status.erb"
 end
