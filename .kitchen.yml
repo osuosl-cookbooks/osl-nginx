@@ -16,10 +16,6 @@ suites:
       - recipe[osl-nginx::default]
   - name: vhost
     run_list:
-      - recipe[osl-nginx::vhosts]
-      - recipe[osl-nginx::logrotate]
-  - name: lwrp
-    run_list:
         - recipe[osl-nginx::project_test]
         - recipe[osl-nginx::logrotate]
     attributes:
