@@ -23,6 +23,7 @@ end
 
 nginx_app "etherpad-lite.osuosl.org-back" do
     template "etherpad/etherpad-lite.osuosl.org-back.erb"
+    enable false
 end
     
 nginx_app "nginx_status" do
