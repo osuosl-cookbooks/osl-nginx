@@ -1,0 +1,76 @@
+# taken from https://github.com/ether/etherpad-lite/wiki/How-to-put-Etherpad-Lite-behind-a-reverse-Proxy
+
+upstream etherpad-lite {
+  server 127.0.0.1:9001;
+}
+
+server {
+  listen       80;
+  server_name  etherpad.osuosl.org test-notes.openmrs.org notes.openmrs.org *.etherpad-lite.osuosl.org etherpad-lite.osuosl.org;
+
+
+  # Allow normal files to pass through
+  location ~ ^/(locales/|locales.json|admin/|static/|pluginfw/|javascripts/|socket.io/|ep/|minified/|api/|ro/|error/|jserror/|favicon.ico|robots.txt) {
+    proxy_buffering off;
+    proxy_pass http://etherpad-lite;
+  }
+
+  # Redirect to force /p/* URLs to the friendly version
+  location /p/ {
+    rewrite ^/p/(.*) /$1 redirect;
+  }
+
+  # Match the home page
+  location ~ ^/$ {
+    proxy_buffering off;
+    proxy_pass http://etherpad-lite;
+  }
+
+
+  # Handle pad URLs here
+  location / {
+    proxy_buffering off;
+    proxy_pass http://etherpad-lite/p/;
+    proxy_redirect / /p/;
+  }
+}
+server {
+  listen  443;
+  server_name  localhost test-notes.openmrs.org notes.openmrs.org;
+
+  ssl on;
+  ssl_certificate  /etc/nginx/ssl/chain.openmrs.org.crt;
+  ssl_certificate_key  /etc/nginx/ssl/star.dev.openmrs.org.pem;
+
+  ssl_session_timeout  5m;
+
+  ssl_protocols  SSLv2 SSLv3 TLSv1;
+  ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+  ssl_prefer_server_ciphers   on;
+
+  access_log  /var/log/nginx/localhost.access.log;
+
+  # Allow normal files to pass through
+  location ~ ^/(locales/|locales.json|admin/|static/|pluginfw/|javascripts/|socket.io/|ep/|minified/|api/|ro/|error/|jserror/|favicon.ico|robots.txt) {
+    proxy_buffering off;
+    proxy_pass http://etherpad-lite;
+  }
+
+  # Redirect to force /p/* URLs to the friendly version
+  location /p/ {
+    rewrite ^/p/(.*) /$1 redirect;
+  }
+
+  # Match the home page
+  location ~ ^/$ {
+    proxy_buffering off;
+    proxy_pass http://etherpad-lite;
+  }
+
+  # Handle pad URLs here
+  location / {
+    proxy_buffering off;
+    proxy_pass http://etherpad-lite/p/;
+    proxy_redirect / /p/;
+  }
+}
