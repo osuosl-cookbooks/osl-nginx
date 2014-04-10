@@ -19,62 +19,50 @@
 
 define :nginx_app, :template => "nginx_app.conf.erb", :local => false, :enable => true do
 
-    application_name = params[:name]
-    application_directory = params[:directory] || "/var/www/#{application_name}"
-
-    include_recipe "osl-nginx::default"
+    include_recipe "nginx::default"
     
-    directory application_directory do 
-        owner params[:owner] ? params[:owner] : "root"
-        group "root" 
-        mode 00644
-        recursive true
-        action :create
-    end
-    directory "#{node['nginx']['log_dir']}/#{application_name}/access" do 
+    directory "#{node['nginx']['log_dir']}/#{params[:name]}/access" do 
         owner "root"
         group "root"
         mode 00644
         recursive true
         action :create
     end
-    directory "#{node['nginx']['log_dir']}/#{application_name}/error" do 
+    directory "#{node['nginx']['log_dir']}/#{params[:name]}/error" do 
         owner "root"
         group "root"
         mode 00644
         action :create
     end
     if params[:custom_config] then
-        vhost_include = "#{node['nginx']['dir']}/sites-available/#{application_name}_include.conf"
+        vhost_include = "#{node['nginx']['dir']}/sites-available/#{params[:name]}_include.conf"
         cookbook_file vhost_include do
-            source "#{node['osl-nginx']['hostname']}/#{application_name}.conf" 
+            source "#{node['osl-nginx']['hostname']}/#{params[:name]}.conf" 
             cookbook params[:cookbook] if params[:cookbook]
             owner "root"
             group "root"
             mode 0644
-            if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{application_name}.conf")
+            if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}.conf")
                 notifies :reload, "service[nginx]"
             end
         end
     end
-    template "#{node['nginx']['dir']}/sites-available/#{application_name}.conf" do
+    template "#{node['nginx']['dir']}/sites-available/#{params[:name]}.conf" do
         source params[:template] || "nginx_app.conf.erb"
         cookbook params[:cookbook] if params[:cookbook]
         owner "root"
         group "root"
         mode 0644
         variables({ 
-            :application_name => application_name,
             :server_aliases => params[:server_aliases] || [],
-            :params => params,
-            :web_root => application_directory
+            :params => params
         })
-        if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{application_name}.conf")
+        if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}.conf")
             notifies :reload, "service[nginx]"
         end
     end 
     site_enabled = params[:enable]
-    nginx_site "#{application_name}.conf" do
+    nginx_site "#{params[:name]}.conf" do
         enable site_enabled
     end
 end 

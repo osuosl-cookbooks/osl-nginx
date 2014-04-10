@@ -3,7 +3,7 @@
 #
 server {
     server_name <%= @params[:name] %><% @server_aliases.each do |a| %> <%=a%><% end %>;
-    root <%= @web_root %>; 
+    root <%= @params[:directory] %>; 
     index index.html index.htm index.php
     <% if @params[:custom_config] then  %>
     
@@ -15,3 +15,24 @@ server {
     error_log <%= "#{node['nginx']['log_dir']}/#{@params[:name]}/error/error.log" %>
     <% end %>
 }
+
+<% if @params[:enable_ssl] and @params[:cert_file] and @params[:cert_key] %>
+server {
+    listen 443 ssl;
+    server_name <%= @params[:name] %><% @server_aliases.each do |a| %> <%=a%><% end %>;
+    ssl_certificate <%= @params[:cert_file] %>;
+    ssl_certificate_key <%= @params[:cert_key] %>;
+
+    root <%= @params[:directory] %>; 
+    index index.html index.htm index.php
+    <% if @params[:custom_config] then  %>
+    
+    include <%= "#{node['nginx']['dir']}/sites-available/#{@params[:name]}_include.conf" %>;
+    <% end %>
+
+    <% if !@params[:custom_logs] then %>
+    access_log <%= "#{node['nginx']['log_dir']}/#{@params[:name]}/access/access.log" %>  
+    error_log <%= "#{node['nginx']['log_dir']}/#{@params[:name]}/error/error.log" %>
+    <% end %>
+}
+<% end %>
