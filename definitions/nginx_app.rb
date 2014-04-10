@@ -19,7 +19,7 @@
 
 define :nginx_app, :template => "nginx_app.conf.erb", :local => false, :enable => true do
 
-    include_recipe "nginx::default"
+    include_recipe "osl-nginx::default"
     
     directory "#{node['nginx']['log_dir']}/#{params[:name]}/access" do 
         owner "root"
