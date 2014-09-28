@@ -1,6 +1,6 @@
-chef_api :config
+source 'https://supermarket.getchef.com'
 
-cookbook "firewall"
-cookbook "yum", "< 3.0.0"
+cookbook "firewall", git: "git@github.com:osuosl-cookbooks/firewall"
+cookbook "nginx"
 
 metadata

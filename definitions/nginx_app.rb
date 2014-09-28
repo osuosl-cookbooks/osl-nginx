@@ -20,6 +20,9 @@
 define :nginx_app, :template => "nginx_app.conf.erb", :local => false, :enable => true do
   include_recipe "osl-nginx::default"
 
+  cookbook = params[:cookbook] || "osl-nginx"
+  include_name = params[:include_name] || params[:name]
+
   directory "#{node['nginx']['log_dir']}/#{params[:name]}/access" do
     owner "root"
     group "root"
@@ -33,24 +36,24 @@ define :nginx_app, :template => "nginx_app.conf.erb", :local => false, :enable =
     mode 00644
     action :create
   end
-  if params[:custom_config] then
-    vhost_include = "#{node['nginx']['dir']}/sites-available/#{params[:name]}_include.conf"
+  if params[:include_config] then
+    vhost_include = "#{node['nginx']['dir']}/sites-available/#{include_name}_include.conf"
     cookbook_file vhost_include do
-      source "#{node['osl-nginx']['hostname']}/#{params[:name]}.conf"
-      cookbook params[:cookbook] if params[:cookbook]
-      owner "root"
-      group "root"
+      source "#{node['osl-nginx']['hostname']}/#{include_name}.conf"
+      cookbook params[:cookbook_include] if params[:cookbook_include]
+      owner node['nginx']['user']
+      group node['nginx']['group']
       mode 0644
-      if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}.conf")
+      if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{include_name}.conf")
         notifies :reload, "service[nginx]"
       end
     end
   end
   template "#{node['nginx']['dir']}/sites-available/#{params[:name]}.conf" do
     source params[:template] || "nginx_app.conf.erb"
-    cookbook params[:cookbook] if params[:cookbook]
-    owner "root"
-    group "root"
+    cookbook cookbook
+    owner node['nginx']['user']
+    group node['nginx']['group']
     mode 0644
     variables({
       :server_aliases => params[:server_aliases] || [],
