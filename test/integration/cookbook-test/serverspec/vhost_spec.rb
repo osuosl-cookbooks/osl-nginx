@@ -53,6 +53,14 @@ describe file('/etc/nginx/sites-available/test-cookbook-template.osuosl.org.conf
   its(:content) { should match /cookbook-template$/ }
 end
 
+describe file('/etc/nginx/sites-available/test-cookbook-include-template.osuosl.org.conf') do
+  it { should be_mode 644 }
+  it { should be_owned_by 'nginx' }
+  it { should be_grouped_into 'nginx' }
+  its(:content) { should match /include \/etc\/nginx\/sites-available\/test-include_include.conf;$/ }
+  its(:content) { should match /server_name test-cookbook-include-template.osuosl.org;$/ }
+end
+
 describe file('/etc/nginx/sites-available/test_include.conf') do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
@@ -74,8 +82,21 @@ describe file('/etc/nginx/sites-available/test-cookbook.osuosl.org_include.conf'
   its(:content) { should match /test-cookbook/ }
 end
 
+describe file('/etc/nginx/sites-available/test_include.conf') do
+  it { should be_mode 644 }
+  it { should be_owned_by 'nginx' }
+  it { should be_grouped_into 'nginx' }
+  its(:content) { should match /test-include-name/ }
+end
+
+describe file('/etc/nginx/sites-available/test-include_include.conf') do
+  it { should be_mode 644 }
+  it { should be_owned_by 'nginx' }
+  it { should be_grouped_into 'nginx' }
+  its(:content) { should match /cookbook-include-template/ }
+end
 %w[test-cookbook test-cookbook-include test-cookbook-include
-test-cookbook-template].each do |f|
+test-cookbook-template test-cookbook-include-template].each do |f|
   describe file("/etc/nginx/sites-enabled/#{f}.osuosl.org.conf") do
     it { should be_linked_to "/etc/nginx/sites-available/#{f}.osuosl.org.conf" }
   end

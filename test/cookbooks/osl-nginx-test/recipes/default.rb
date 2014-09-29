@@ -31,3 +31,11 @@ nginx_app "test-cookbook-template.osuosl.org" do
   template "test.erb.conf"
   cookbook "osl-nginx-test"
 end
+
+# Include a config using a template from the test cookbook named test-include.
+nginx_app "test-cookbook-include-template.osuosl.org" do
+  directory "/var/www/test-cookbook-include-template.osuosl.org"
+  include_config true
+  include_resource "template"
+  include_name "test-include"
+end

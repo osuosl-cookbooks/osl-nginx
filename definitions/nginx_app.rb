@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-define :nginx_app, :template => "nginx_app.conf.erb", :local => false, :enable => true do
+define :nginx_app, :template => "nginx_app.conf.erb",
+:include_resource => "cookbook_file", :local => false, :enable => true do
   include_recipe "osl-nginx::default"
 
   cookbook = params[:cookbook] || "osl-nginx"
@@ -38,15 +39,31 @@ define :nginx_app, :template => "nginx_app.conf.erb", :local => false, :enable =
   end
   if params[:include_config] then
     vhost_include = "#{node['nginx']['dir']}/sites-available/#{include_name}_include.conf"
-    cookbook_file vhost_include do
-      source "#{node['osl-nginx']['hostname']}/#{include_name}.conf"
-      cookbook params[:cookbook_include] if params[:cookbook_include]
-      owner node['nginx']['user']
-      group node['nginx']['group']
-      mode 0644
-      if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{include_name}.conf")
-        notifies :reload, "service[nginx]"
+    case params[:include_resource]
+    when "cookbook_file"
+      cookbook_file vhost_include do
+        source "#{node['osl-nginx']['hostname']}/#{include_name}.conf"
+        cookbook params[:cookbook_include] if params[:cookbook_include]
+        owner node['nginx']['user']
+        group node['nginx']['group']
+        mode 0644
+        if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{include_name}.conf")
+          notifies :reload, "service[nginx]"
+        end
       end
+    when "template"
+      template vhost_include do
+        source "#{include_name}.conf.erb"
+        cookbook params[:cookbook_include] if params[:cookbook_include]
+        owner node['nginx']['user']
+        group node['nginx']['group']
+        mode 0644
+        if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{include_name}.conf")
+          notifies :reload, "service[nginx]"
+        end
+      end
+    else
+      Chef::Log.warn "Unable to create include resource for type #{params[:include_resource]}"
     end
   end
   template "#{node['nginx']['dir']}/sites-available/#{params[:name]}.conf" do
