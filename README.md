@@ -87,47 +87,38 @@ Current parameters used by the definition:
 - `name` - The name of the site. Also defines the ``server_name`` variable in
   the vhost.  the template will be written to
   ``#{node['nginx']['dir']/sites-available/#{params['name']}.conf``
-- `cookbook` - Optional. Cookbook where the source template is. If this is not
-  defined, Chef will use the named template in the cookbook where the definition
-  is used.
+- `cookbook` - Name of the cookbook to pull the nginx template from. Defaults
+  to`osl-nginx`.
 - `template` - Default ``nginx_app.conf.erb``, source template file.
 - `enable` - Default true. Passed to the ``nginx_site`` definition.
-
-### Examples:
-
-Unlike the ``web_app`` definition, not all of the parameters are passed to the
-template. You are still provided the option if you want to have a custom
-template in your own cookbook by using the `@params` variable. Here is a list of
-all of the parameters available for the default template:
-
-- ``server_aliases`` - ServerAlias directive. Must be an array of aliases.
+- ``cookbook_include`` - Name of the cookbook to pull the optional include file
+  from. Defaults to pulling from the cookbook being called from.
+- ``include_name`` - Boolean (optional). Adds the `include` directive to the
+  vhost config file. Defaults to `false`.
+- ``include_name`` - Name of the include file (sans .conf). Defaults to `name`.
+- ``include_resource`` - Type of chef resource to use include file from.
+  Currently only supports ``cookbook_file`` or ``template``. Defaults to
+  ``cookbook_file``.
+- ``server_aliases`` - Additional server names to be included. Must be an array of aliases.
 - `directory` - Creates the Defaults to `/var/www/#{params['name']}.
-- `custom_config` - Optional. Adds the include directive. Pulls source from
-  `files/default/#{node['osl-nginx']['hostname']}/#{params['name']}`
 - `ssl_enable` - Enables ssl support. Note that `ssl_enable`, `cert_file`, and
   `cert_key` must be defined in order to populate the directive.
 - `cert_file` - Path to ssl cert.
 - `cert_key` - Path to ssl key.
-- `cert_chain` - Optional, path to ssl cert chain.
+- ``directive_http`` - An array of nginx config directives to include only in
+  the http vhost.
+- ``directive_https`` - An array of nginx config directives to include only in
+  the https vhost.
 
 To use the default ``nginx_app``, for example:
 
 ``` ruby
     nginx_app "www.example.com" do
       server_aliases ["www.example.org", "test.example.com"]
-      docroot "/var/www/www.example.com/yes"
-      enable_ssl true
+      directory "/var/www/www.example.com"
+      ssl_enable true
     end
 ```
-
-#### Custom includes:
-
-Sometimes you will need to have custom settings for a vhost. You can add the
-``custom_config`` parameter to ``nginx_app`` to include a custom file.
-osl-nginx will look for the file within
-`files/default/#{node['osl-nginx']['hostname']/#{@params['name']}}`. If the file
-is not in that location then it will not load. You can include custom files from
-different cookbooks by passing in the cookbook parameter.
 
 Contributing
 ------------
