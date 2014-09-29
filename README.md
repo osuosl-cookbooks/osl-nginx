@@ -100,11 +100,11 @@ Current parameters used by the definition:
   Currently only supports ``cookbook_file`` or ``template``. Defaults to
   ``cookbook_file``.
 - ``server_aliases`` - Additional server names to be included. Must be an array of aliases.
-- `directory` - Creates the Defaults to `/var/www/#{params['name']}.
-- `ssl_enable` - Enables ssl support. Note that `ssl_enable`, `cert_file`, and
-  `cert_key` must be defined in order to populate the directive.
-- `cert_file` - Path to ssl cert.
-- `cert_key` - Path to ssl key.
+- `directory` - Creates the Defaults to `/var/www/#{params['name']}`.
+- ``ssl_enable`` - Enables ssl support. Note that ``ssl_enable``, ``cert_file``, and
+  ``cert_key`` must be defined in order to populate the directive.
+- ``cert_file`` - Path to ssl cert.
+- ``cert_key`` - Path to ssl key.
 - ``directive_http`` - An array of nginx config directives to include only in
   the http vhost.
 - ``directive_https`` - An array of nginx config directives to include only in
@@ -113,11 +113,11 @@ Current parameters used by the definition:
 To use the default ``nginx_app``, for example:
 
 ``` ruby
-    nginx_app "www.example.com" do
-      server_aliases ["www.example.org", "test.example.com"]
-      directory "/var/www/www.example.com"
-      ssl_enable true
-    end
+nginx_app "www.example.com" do
+  server_aliases ["www.example.org", "test.example.com"]
+  directory "/var/www/www.example.com"
+  ssl_enable true
+end
 ```
 
 Contributing
@@ -126,6 +126,7 @@ TODO: (optional) If this is a public cookbook, detail the process for
 contributing. If this is a private cookbook, remove this section.
 
 e.g.
+
 1. Fork the repository on Github
 2. Create a named feature branch (like ``add_component_x``)
 3. Write you change
