@@ -19,6 +19,7 @@
 
 define :nginx_app, :template => "nginx_app.conf.erb",
   :include_resource => "cookbook_file", :local => false, :enable => true do
+
   include_recipe "osl-nginx::default"
 
   cookbook = params[:cookbook] || "osl-nginx"
