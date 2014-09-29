@@ -80,8 +80,7 @@ define :nginx_app, :template => "nginx_app.conf.erb",
       notifies :reload, "service[nginx]"
     end
   end
-  site_enabled = params[:enable]
   nginx_site "#{params[:name]}.conf" do
-    enable site_enabled
+    enable params[:enable]
   end
 end
