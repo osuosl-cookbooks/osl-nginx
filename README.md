@@ -136,7 +136,4 @@ e.g.
 
 License and Authors
 -------------------
-Authors:
-
-Anthony Miller (armiller@osuosl.org)
-Lance Albertson (lance@osuosl.org)
+Authors: OSU Open Source Lab (chef@osuosl.org)
