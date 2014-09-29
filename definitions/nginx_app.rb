@@ -26,14 +26,14 @@ define :nginx_app, :template => "nginx_app.conf.erb", :local => false, :enable =
   directory "#{node['nginx']['log_dir']}/#{params[:name]}/access" do
     owner "root"
     group "root"
-    mode 00644
+    mode 0644
     recursive true
     action :create
   end
   directory "#{node['nginx']['log_dir']}/#{params[:name]}/error" do
     owner "root"
     group "root"
-    mode 00644
+    mode 0644
     action :create
   end
   if params[:include_config] then
