@@ -4,7 +4,7 @@
 server {
   listen <%= @params[:server_port] || node['osl-nginx']['server_port'] %>;
   server_name <%= @params[:name] %><% @server_aliases.each do |a| %> <%=a%><% end %>;
-  root <%= @params[:directory] %>;
+  root <%= @params[:directory] || "/var/www/#{@params[:name]}" %>;
   <% if @params[:directory_index] %>
   index <% @params[:directory_index].each do |i| %> <%= i %><% end %>;
   <% else %>
@@ -31,7 +31,7 @@ server {
 server {
   listen 443 ssl;
   server_name <%= @params[:name] %><% @server_aliases.each do |a| %> <%=a%><% end %>;
-  root <%= @params[:directory] %>;
+  root <%= @params[:directory] || "/var/www/#{@params[:name]}" %>;
   <% if @params[:directory_index] %>
   index <% @params[:directory_index].each do |i| %> <%= i %><% end %>;
   <% else %>
