@@ -109,13 +109,50 @@ Current parameters used by the definition:
 - ``directive_https`` - An array of nginx config directives to include only in
   the https vhost.
 
-To use the default ``nginx_app``, for example:
+#### Examples:
+
+Basic site
 
 ``` ruby
 nginx_app "www.example.com" do
   server_aliases ["www.example.org", "test.example.com"]
-  directory "/var/www/www.example.com"
+end
+```
+
+Basic site with an ssl cert and redirecting all http traffic to https.
+
+``` ruby
+nginx_app "www.example.org" do
+  server_aliases [ "www1.example.org", "www2.example.org" ]
+  directory "/var/www/www.example.org"
   ssl_enable true
+  cert_file "/etc/pki/tls/certs/www.example.org.pem"
+  cert_key "/etc/pki/tls/private/www.example.org.key"
+  directive_http [ "rewrite ^ https://$server_name$request_uri? permanent;" ]
+end
+```
+
+Basic site, but pull an include config from
+``files/default/example.org/www.example.org.conf``. This assumes the
+``node['osl-nginx']['hostname']`` attribute is set to ``example.org``.
+
+``` ruby
+nginx_app "www.example.org" do
+  directory "/var/www/www.example.org"
+  include_config true
+end
+```
+
+Basic site, but lets use an include config with a specific name and using a
+template for it. This will use the template
+``templates/default/example.conf.erb`` and use an ``include`` directive.
+
+``` ruby
+nginx_app "www.example.org" do
+  directory "/var/www/www.example.org"
+  include_config true
+  include_resource "template"
+  include_name "example"
 end
 ```
 
