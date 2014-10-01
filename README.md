@@ -1,9 +1,8 @@
 osl-nginx Cookbook
 ===================
 This cookbook is a wrapper cookbook for the nginx opscode community cookbook. It
-contains a definition to manage vhosts and add custom functionality such as
-munin graphing and nagios checks. In addition is can automatically calculate max
-hosts settings based on available memory.
+primarily features a definition to manage vhosts using our standard
+configuration. It also ensure a few other settings are used by OSL default.
 
 Attributes
 ==========
