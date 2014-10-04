@@ -1,8 +1,7 @@
 # Tests nginx _test_vhost without certificate chain recipe
 require 'serverspec'
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
+set :backend, :exec
 
 # Dependencies installed
 describe package('nginx') do
