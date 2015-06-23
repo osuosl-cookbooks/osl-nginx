@@ -16,14 +16,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "monitoring::http"
-include_recipe "nginx::http_stub_status_module"
-include_recipe "osl-munin::client"
+include_recipe 'monitoring::http'
+include_recipe 'nginx::http_stub_status_module'
+include_recipe 'osl-munin::client'
 
-template "#{node['munin']['basedir']}/plugin-conf.d/nginx" do
-  source "munin/nginx.erb"
-  owner "root"
-  group "root"
+template ::File.join(node['munin']['basedir'], 'plugin-conf.d/nginx') do
+  source 'munin/nginx.erb'
+  owner 'root'
+  group 'root'
   mode 0644
 end
 
