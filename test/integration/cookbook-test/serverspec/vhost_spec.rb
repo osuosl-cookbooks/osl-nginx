@@ -58,8 +58,8 @@ describe file(::File.join(conf_dir, 'test-cookbook-include.osuosl.org.conf')) do
 end
 
 describe file(::File.join(
-  conf_dir,
-  'test-cookbook-template.osuosl.org.conf')) do
+                conf_dir,
+                'test-cookbook-template.osuosl.org.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
@@ -67,8 +67,8 @@ describe file(::File.join(
 end
 
 describe file(::File.join(
-  conf_dir,
-  'test-cookbook-include-template.osuosl.org.conf')) do
+                conf_dir,
+                'test-cookbook-include-template.osuosl.org.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }

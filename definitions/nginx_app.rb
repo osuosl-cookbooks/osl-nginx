@@ -54,9 +54,9 @@ define :nginx_app,
         group node['nginx']['group']
         mode 0644
         if ::File.exist?(::File.join(
-            node['nginx']['dir'],
-            'sites-enabled',
-            "#{include_name}.conf"))
+                           node['nginx']['dir'],
+                           'sites-enabled',
+                           "#{include_name}.conf"))
           notifies :reload, 'service[nginx]'
         end
       end
@@ -68,9 +68,9 @@ define :nginx_app,
         group node['nginx']['group']
         mode 0644
         if ::File.exist?(::File.join(
-            node['nginx']['dir'],
-            'sites-enabled',
-            "#{include_name}.conf"))
+                           node['nginx']['dir'],
+                           'sites-enabled',
+                           "#{include_name}.conf"))
           notifies :reload, 'service[nginx]'
         end
       end
@@ -90,9 +90,9 @@ define :nginx_app,
       params: params
     )
     if ::File.exist?(::File.join(
-        node['nginx']['dir'],
-        'sites-enabled',
-        "#{params[:name]}.conf"))
+                       node['nginx']['dir'],
+                       'sites-enabled',
+                       "#{params[:name]}.conf"))
       notifies :reload, 'service[nginx]'
     end
   end
