@@ -21,81 +21,106 @@ describe port(443) do
   it { should_not be_listening }
 end
 
-describe file('/etc/nginx/sites-available/test-cookbook.osuosl.org.conf') do
+conf_dir = '/etc/nginx/sites-available'
+
+describe file(::File.join(conf_dir, 'test-cookbook.osuosl.org.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should_not match /ssl_certificate/ }
-  its(:content) { should match /include \/etc\/nginx\/sites-available\/test-cookbook.osuosl.org_include.conf;/ }
+  its(:content) { should_not match(/ssl_certificate/) }
+  its(:content) do
+    should match(%r{include /etc/nginx/sites-available/\
+test-cookbook.osuosl.org_include.conf;})
+  end
 end
 
-describe file('/etc/nginx/sites-available/test-cookbook-name.osuosl.org.conf') do
+describe file(::File.join(conf_dir, 'test-cookbook-name.osuosl.org.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should match /include \/etc\/nginx\/sites-available\/test-cookbook_include.conf;/ }
-  its(:content) { should match /server_name test-cookbook-name.osuosl.org;$/ }
+  its(:content) do
+    should match(%r{include /etc/nginx/sites-available/\
+test-cookbook_include.conf;})
+  end
+  its(:content) { should match(/server_name test-cookbook-name.osuosl.org;$/) }
 end
 
-describe file('/etc/nginx/sites-available/test-cookbook-include.osuosl.org.conf') do
+describe file(::File.join(conf_dir, 'test-cookbook-include.osuosl.org.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should match /include \/etc\/nginx\/sites-available\/test_include.conf;$/ }
-  its(:content) { should match /server_name test-cookbook-include.osuosl.org;$/ }
+  its(:content) do
+    should match(%r{include /etc/nginx/sites-available/test_include.conf;})
+  end
+  its(:content) do
+    should match(/server_name test-cookbook-include.osuosl.org;$/)
+  end
 end
 
-describe file('/etc/nginx/sites-available/test-cookbook-template.osuosl.org.conf') do
+describe file(::File.join(
+                conf_dir,
+                'test-cookbook-template.osuosl.org.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should match /cookbook-template$/ }
+  its(:content) { should match(/cookbook-template$/) }
 end
 
-describe file('/etc/nginx/sites-available/test-cookbook-include-template.osuosl.org.conf') do
+describe file(::File.join(
+                conf_dir,
+                'test-cookbook-include-template.osuosl.org.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should match /include \/etc\/nginx\/sites-available\/test-include_include.conf;$/ }
-  its(:content) { should match /server_name test-cookbook-include-template.osuosl.org;$/ }
+  its(:content) do
+    should match(%r{include /etc/nginx/sites-available/\
+test-include_include.conf;})
+  end
+  its(:content) do
+    should match(/server_name test-cookbook-include-template.osuosl.org;$/)
+  end
 end
 
-describe file('/etc/nginx/sites-available/test_include.conf') do
+describe file(::File.join(conf_dir, 'test_include.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should match /test-include-name/ }
+  its(:content) { should match(/test-include-name/) }
 end
 
-describe file('/etc/nginx/sites-available/test-cookbook_include.conf') do
+describe file(::File.join(conf_dir, 'test-cookbook_include.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should match /test-name-cookbook/ }
+  its(:content) { should match(/test-name-cookbook/) }
 end
 
-describe file('/etc/nginx/sites-available/test-cookbook.osuosl.org_include.conf') do
+describe file(::File.join(conf_dir, 'test-cookbook.osuosl.org_include.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should match /test-cookbook/ }
+  its(:content) { should match(/test-cookbook/) }
 end
 
-describe file('/etc/nginx/sites-available/test_include.conf') do
+describe file(::File.join(conf_dir, 'test_include.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should match /test-include-name/ }
+  its(:content) { should match(/test-include-name/) }
 end
 
-describe file('/etc/nginx/sites-available/test-include_include.conf') do
+describe file(::File.join(conf_dir, 'test-include_include.conf')) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
-  its(:content) { should match /cookbook-include-template/ }
+  its(:content) { should match(/cookbook-include-template/) }
 end
-%w[test-cookbook test-cookbook-include test-cookbook-include
-test-cookbook-template test-cookbook-include-template].each do |f|
+%w(
+  test-cookbook
+  test-cookbook-include
+  test-cookbook-include
+  test-cookbook-template
+  test-cookbook-include-template).each do |f|
   describe file("/etc/nginx/sites-enabled/#{f}.osuosl.org.conf") do
     it { should be_linked_to "/etc/nginx/sites-available/#{f}.osuosl.org.conf" }
   end

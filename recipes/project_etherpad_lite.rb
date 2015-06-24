@@ -16,15 +16,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-nginx_app "etherpad-lite.osuosl.org" do
-  template "etherpad/etherpad-lite.osuosl.org.erb"
+nginx_app 'etherpad-lite.osuosl.org' do
+  template 'etherpad/etherpad-lite.osuosl.org.erb'
 end
 
-nginx_app "etherpad-lite.osuosl.org-back" do
-  template "etherpad/etherpad-lite.osuosl.org-back.erb"
+nginx_app 'etherpad-lite.osuosl.org-back' do
+  template 'etherpad/etherpad-lite.osuosl.org-back.erb'
   enable false
 end
 
-nginx_app "nginx_status" do
-  template "etherpad/nginx_status.erb"
+nginx_app 'nginx_status' do
+  template 'etherpad/nginx_status.erb'
 end

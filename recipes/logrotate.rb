@@ -16,10 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "logrotate"
+include_recipe 'logrotate'
 
 logrotate_app 'nginx' do
   path "#{node['nginx']['log_dir']}/*/*/*.log"
-  frequency "daily"
-  postrotate "[ ! -f #{node['nginx']['pid']} ] || kill -USR1 `cat #{node['nginx']['pid']}`"
+  frequency 'daily'
+  postrotate "[ ! -f #{node['nginx']['pid']} ] \
+|| kill -USR1 `cat #{node['nginx']['pid']}`"
 end
