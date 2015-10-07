@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'osl-nagios::check_http'
+include_recipe 'osl-nrpe::check_http'
 include_recipe 'nginx::http_stub_status_module'
 include_recipe 'osl-munin::client'
 

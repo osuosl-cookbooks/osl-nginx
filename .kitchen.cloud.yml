@@ -44,8 +44,6 @@ suites:
     run_list:
       - recipe[osl-nginx::default]
   - name: mon
-    provisioner:
-      name: chef_zero
     run_list:
       - recipe[osl-nginx::default]
       - recipe[osl-nginx::mon]
