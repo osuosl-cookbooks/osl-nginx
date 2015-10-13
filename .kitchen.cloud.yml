@@ -28,16 +28,18 @@ provisioner:
         hostname: "test.osuosl.org"
 
 platforms:
-- name: centos-6.6
+- name: centos-6.7
   driver_plugin: openstack
   driver_config:
+    image_ref: "CentOS 6.7"
+  transport:
     username: centos
-    image_ref: "CentOS 6.5"
 - name: centos-7.1
   driver_plugin: openstack
   driver_config:
-    username: centos
     image_ref: "CentOS 7.1"
+  transport:
+    username: centos
 
 suites:
   - name: default
