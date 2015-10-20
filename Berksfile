@@ -6,7 +6,8 @@ cookbook 'nagios', git: 'git@github.com:osuosl-cookbooks/nagios'
 # be removed when we switch to the newer upstream nrpe cookbook.
 cookbook 'osl-apache', git: 'git@github.com:osuosl-cookbooks/osl-apache'
 cookbook 'osl-munin', git: 'git@github.com:osuosl-cookbooks/osl-munin'
-cookbook 'osl-nagios', git: 'git@github.com:osuosl-cookbooks/osl-nagios'
+cookbook 'osl-nagios', git: 'git@github.com:osuosl-cookbooks/osl-nagios',
+                       branch: 'stable/0.1.x'
 cookbook 'osl-nginx-test', path: 'test/cookbooks/osl-nginx-test'
 
 metadata
