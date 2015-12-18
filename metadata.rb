@@ -12,3 +12,6 @@ depends          'logrotate'
 depends          'nginx'
 depends          'osl-munin'
 depends          'osl-nrpe'
+
+supports         'centos', '~> 6'
+supports         'centos', '~> 7'

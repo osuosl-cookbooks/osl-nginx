@@ -1,28 +1,19 @@
 ---
-driver:
-  name: vagrant
-  network:
-    - ["forwarded_port", {guest: 80, host: 8080}]
-
 provisioner:
   name: chef_solo
   data_bags_path: test/integration/data_bags
   encrypted_data_bag_secret_key_path: test/integration/encrypted_data_bag_secret
   attributes:
+    omnibus_updater:
+      disabled: true
     osl-nginx:
-        hostname: "test.osuosl.org"
-
-platforms:
-  - name: centos-6.6
-  - name: centos-7.1
+      hostname: test.osuosl.org
 
 suites:
   - name: default
     run_list:
       - recipe[osl-nginx::default]
   - name: mon
-    provisioner:
-      name: chef_zero
     run_list:
       - recipe[osl-nginx::default]
       - recipe[osl-nginx::mon]
@@ -34,9 +25,8 @@ suites:
       - recipe[osl-nginx::_test_vhost]
     attributes:
       certificate:
-        -
-          testosuoslorg:
-            cert_path: /etc/pki/tls
+        - testosuoslorg:
+            cert_path: "/etc/pki/tls"
             cert_file: test.osuosl.org.pem
             key_file: test.osuosl.org.key
             owner: nginx
