@@ -9,7 +9,7 @@ version          '1.1.4'
 depends          'certificate'
 depends          'firewall'
 depends          'logrotate'
-depends          'nginx'
+depends          'chef_nginx', '~> 2.9.0'
 depends          'osl-munin'
 depends          'osl-nrpe'
 
