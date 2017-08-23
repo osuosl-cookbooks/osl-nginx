@@ -3,4 +3,19 @@ AllCops:
     - '**/Berksfile'
     - '**/Cheffile'
   Exclude:
-    - '**/metadata.rb'
+    - 'metadata.rb'
+
+Style/NumericLiteralPrefix:
+  EnforcedOctalStyle: zero_only
+
+Metrics/LineLength:
+  Max: 120
+
+Style/IfUnlessModifier:
+  MaxLineLength: 120
+
+Style/WhileUntilModifier:
+  MaxLineLength: 120
+
+Metrics/BlockLength:
+  Enabled: false

@@ -79,7 +79,8 @@ end
 %w(
   test
   test-include
-  test-include-name).each do |f|
+  test-include-name
+).each do |f|
   describe file("/etc/nginx/sites-enabled/#{f}.osuosl.org.conf") do
     it { should be_linked_to "/etc/nginx/sites-available/#{f}.osuosl.org.conf" }
   end

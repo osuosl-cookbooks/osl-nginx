@@ -59,7 +59,8 @@ end
 
 describe file(::File.join(
                 conf_dir,
-                'test-cookbook-template.osuosl.org.conf')) do
+                'test-cookbook-template.osuosl.org.conf'
+)) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
@@ -68,7 +69,8 @@ end
 
 describe file(::File.join(
                 conf_dir,
-                'test-cookbook-include-template.osuosl.org.conf')) do
+                'test-cookbook-include-template.osuosl.org.conf'
+)) do
   it { should be_mode 644 }
   it { should be_owned_by 'nginx' }
   it { should be_grouped_into 'nginx' }
@@ -120,7 +122,8 @@ end
   test-cookbook-include
   test-cookbook-include
   test-cookbook-template
-  test-cookbook-include-template).each do |f|
+  test-cookbook-include-template
+).each do |f|
   describe file("/etc/nginx/sites-enabled/#{f}.osuosl.org.conf") do
     it { should be_linked_to "/etc/nginx/sites-available/#{f}.osuosl.org.conf" }
   end
