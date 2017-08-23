@@ -16,6 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe 'osl-nginx'
+include_recipe 'chef_nginx::http_stub_status_module'
+
 nginx_app 'etherpad-lite.osuosl.org' do
   template 'etherpad/etherpad-lite.osuosl.org.erb'
 end

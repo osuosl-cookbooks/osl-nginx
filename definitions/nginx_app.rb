@@ -16,7 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 define :nginx_app,
        template: 'nginx_app.conf.erb',
        include_resource: 'cookbook_file',
@@ -44,7 +43,8 @@ define :nginx_app,
     vhost_include = ::File.join(
       node['nginx']['dir'],
       'sites-available',
-      "#{include_name}_include.conf")
+      "#{include_name}_include.conf"
+    )
     case params[:include_resource]
     when 'cookbook_file'
       cookbook_file vhost_include do
@@ -56,7 +56,8 @@ define :nginx_app,
         if ::File.exist?(::File.join(
                            node['nginx']['dir'],
                            'sites-enabled',
-                           "#{include_name}.conf"))
+                           "#{include_name}.conf"
+        ))
           notifies :reload, 'service[nginx]'
         end
       end
@@ -70,13 +71,14 @@ define :nginx_app,
         if ::File.exist?(::File.join(
                            node['nginx']['dir'],
                            'sites-enabled',
-                           "#{include_name}.conf"))
+                           "#{include_name}.conf"
+        ))
           notifies :reload, 'service[nginx]'
         end
       end
     else
       Chef::Log.warn 'Unable to create include resource for type ' +
-        params[:include_resource]
+                     params[:include_resource]
     end
   end
   template "#{node['nginx']['dir']}/sites-available/#{params[:name]}.conf" do
@@ -92,7 +94,8 @@ define :nginx_app,
     if ::File.exist?(::File.join(
                        node['nginx']['dir'],
                        'sites-enabled',
-                       "#{params[:name]}.conf"))
+                       "#{params[:name]}.conf"
+    ))
       notifies :reload, 'service[nginx]'
     end
   end

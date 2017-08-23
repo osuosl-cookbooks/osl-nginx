@@ -34,3 +34,17 @@ suites:
   - name: cookbook-test
     run_list:
       - recipe[osl-nginx-test]
+  - name: project_etherpad_lite
+    run_list:
+      - recipe[osl-nginx::default]
+      - recipe[certificate::manage_by_attributes]
+      - recipe[osl-nginx-test::etherpad]
+      - recipe[osl-nginx::project_etherpad_lite]
+    attributes:
+      certificate:
+        - notes-openmrs:
+            cert_path: "/etc/pki/tls"
+            cert_file: notes-openmrs.pem
+            key_file: notes-openmrs.key
+            owner: nginx
+            group: nginx
