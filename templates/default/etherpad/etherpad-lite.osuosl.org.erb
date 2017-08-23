@@ -44,8 +44,9 @@ server {
 
   ssl_session_timeout  5m;
 
-  ssl_protocols  SSLv2 SSLv3 TLSv1;
-  ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+
+  ssl_protocols  <%= node['osl-nginx']['ssl_protocols'] %>;
+  ssl_ciphers '<%= node['osl-nginx']['ssl_ciphers'].join(':') %>';
   ssl_prefer_server_ciphers   on;
 
   access_log  /var/log/nginx/localhost.access.log;
