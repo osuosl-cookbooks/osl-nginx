@@ -20,6 +20,7 @@ ALL_PLATFORMS = [
 
 RSpec.configure do |config|
   config.log_level = :fatal
+  Ohai::Config[:log_level] = :error
 end
 
 shared_context 'common_stubs' do
