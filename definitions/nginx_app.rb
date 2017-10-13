@@ -100,6 +100,10 @@ define :nginx_app,
     end
   end
   nginx_site "#{params[:name]}.conf" do
-    enable params[:enable]
+    if params[:enable]
+      action :enable
+    else
+      action :disable
+    end
   end
 end
