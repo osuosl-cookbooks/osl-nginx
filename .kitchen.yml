@@ -23,6 +23,8 @@ suites:
       - recipe[osl-nginx::logrotate]
       - recipe[certificate::manage_by_attributes]
       - recipe[osl-nginx::_test_vhost]
+    driver_config:
+      user_data: userdata-vhost.txt
     attributes:
       certificate:
         - testosuoslorg:

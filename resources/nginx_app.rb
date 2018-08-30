@@ -24,7 +24,7 @@ property :template, String, default: 'nginx_app.conf.erb'
 action :create do
   include_recipe 'osl-nginx::default'
 
-  declare_resource(:directory,"#{node['nginx']['log_dir']}/#{name}/access") do
+  declare_resource(:directory, "#{node['nginx']['log_dir']}/#{name}/access") do
     owner 'root'
     group 'root'
     mode 0644

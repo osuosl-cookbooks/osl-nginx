@@ -20,8 +20,9 @@ describe 'osl-nginx::project_etherpad_lite' do
       end
 
       it do
-        expect(chef_run).to disable_nginx_app('etherpad-lite.osuosl.org-back').with(
-          template: 'etherpad/etherpad-lite.osuosl.org-back.erb'
+        expect(chef_run).to create_nginx_app('etherpad-lite.osuosl.org-back').with(
+          template: 'etherpad/etherpad-lite.osuosl.org-back.erb',
+          enable: false
         )
       end
 
