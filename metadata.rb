@@ -12,7 +12,7 @@ version          '2.1.2'
 depends          'certificate'
 depends          'firewall'
 depends          'logrotate'
-depends          'chef_nginx', '~> 6.2.0'
+depends          'nginx'
 depends          'osl-munin'
 depends          'osl-nrpe'
 

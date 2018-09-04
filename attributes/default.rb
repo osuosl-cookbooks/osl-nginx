@@ -42,3 +42,4 @@ default['osl-nginx']['ssl_ciphers'] = %w(
 )
 
 default['nginx']['repo_source'] = 'nginx'
+default['nginx']['server_names_hash_bucket_size'] = 128
