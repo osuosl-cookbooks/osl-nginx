@@ -4,7 +4,7 @@ default['osl-nginx']['server_port'] = 80
 default['osl-nginx']['directory_index'] = [
   'index.html',
   'index.htm',
-  'index.php'
+  'index.php',
 ]
 default['osl-nginx']['ssl_protocols'] = 'TLSv1 TLSv1.1 TLSv1.2'
 default['osl-nginx']['ssl_ciphers'] = %w(
@@ -42,3 +42,4 @@ default['osl-nginx']['ssl_ciphers'] = %w(
 )
 
 default['nginx']['repo_source'] = 'nginx'
+default['nginx']['server_names_hash_bucket_size'] = 128

@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 include_recipe 'osl-nginx'
-include_recipe 'chef_nginx::http_stub_status_module'
+include_recipe 'nginx::http_stub_status_module'
 
 nginx_app 'etherpad-lite.osuosl.org' do
   template 'etherpad/etherpad-lite.osuosl.org.erb'
@@ -25,7 +25,7 @@ end
 
 nginx_app 'etherpad-lite.osuosl.org-back' do
   template 'etherpad/etherpad-lite.osuosl.org-back.erb'
-  action :disable
+  enable false
 end
 
 nginx_app 'nginx_status' do

@@ -6,9 +6,19 @@ describe 'osl-nginx::logrotate' do
       cached(:chef_run) do
         ChefSpec::SoloRunner.new(p).converge(described_recipe)
       end
+
       include_context 'common_stubs'
+
       it 'converges successfully' do
         expect { chef_run }.to_not raise_error
+      end
+
+      it do
+        expect(chef_run).to enable_logrotate_app('nginx').with(
+          path: '/var/log/nginx/*/*/*.log',
+          frequency: 'daily',
+          postrotate: '[ ! -f  ] || kill -USR1 `cat `'
+        )
       end
     end
   end
