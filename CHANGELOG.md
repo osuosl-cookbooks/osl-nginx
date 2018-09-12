@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+3.0.0 (2018-09-12)
+------------------
+- Chef 13 compatibility fixes
+
 2.1.2 (2017-10-13)
 ------------------
 - User newer chef_nginx cookbook 6.2.0
