@@ -12,7 +12,7 @@ describe service('nginx') do
   it { should be_running }
 end
 
-%w(80 443).each do |p|
+%w(80).each do |p|
   describe port(p) do
     it { should be_listening }
   end
