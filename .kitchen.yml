@@ -54,3 +54,4 @@ suites:
             key_file: notes-openmrs.key
             owner: nginx
             group: nginx
+    verifier: inspec
