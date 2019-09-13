@@ -13,6 +13,7 @@ suites:
   - name: default
     run_list:
       - recipe[osl-nginx::default]
+    verifier: inspec
   - name: mon
     run_list:
       - recipe[osl-nginx::default]
