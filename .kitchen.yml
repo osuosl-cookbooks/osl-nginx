@@ -18,6 +18,7 @@ suites:
     run_list:
       - recipe[osl-nginx::default]
       - recipe[osl-nginx::mon]
+    verifier: inspec
   - name: vhost
     run_list:
       - recipe[osl-nginx::default]
