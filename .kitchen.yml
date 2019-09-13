@@ -39,6 +39,7 @@ suites:
   - name: cookbook-test
     run_list:
       - recipe[osl-nginx-test]
+    verifier: inspec
   - name: project_etherpad_lite
     run_list:
       - recipe[osl-nginx::default]
