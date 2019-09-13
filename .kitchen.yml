@@ -9,16 +9,16 @@ provisioner:
     osl-nginx:
       hostname: test.osuosl.org
 
+verifier: inspec
+
 suites:
   - name: default
     run_list:
       - recipe[osl-nginx::default]
-    verifier: inspec
   - name: mon
     run_list:
       - recipe[osl-nginx::default]
       - recipe[osl-nginx::mon]
-    verifier: inspec
   - name: vhost
     run_list:
       - recipe[osl-nginx::default]
@@ -35,11 +35,9 @@ suites:
             key_file: test.osuosl.org.key
             owner: nginx
             group: nginx
-    verifier: inspec
   - name: cookbook-test
     run_list:
       - recipe[osl-nginx-test]
-    verifier: inspec
   - name: project_etherpad_lite
     run_list:
       - recipe[osl-nginx::default]
@@ -54,4 +52,3 @@ suites:
             key_file: notes-openmrs.key
             owner: nginx
             group: nginx
-    verifier: inspec

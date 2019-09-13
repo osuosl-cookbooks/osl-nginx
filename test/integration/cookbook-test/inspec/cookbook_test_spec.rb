@@ -44,19 +44,19 @@ describe file(::File.join(conf_dir, 'test-cookbook-include.osuosl.org.conf')) do
   its('content') { should match /server_name test-cookbook-include\.osuosl\.org;$/ }
 end
 
-describe file(::File.join( conf_dir, 'test-cookbook-template.osuosl.org.conf')) do
+describe file(::File.join(conf_dir, 'test-cookbook-template.osuosl.org.conf')) do
   its('mode') { should cmp '0644' }
   its('owner') { should cmp 'nginx' }
   its('group') { should cmp 'nginx' }
   its('content') { should match /cookbook-template$/ }
 end
 
-describe file(::File.join( conf_dir, 'test-cookbook-include-template.osuosl.org.conf')) do
+describe file(::File.join(conf_dir, 'test-cookbook-include-template.osuosl.org.conf')) do
   its('mode') { should cmp '0644' }
   its('owner') { should cmp 'nginx' }
   its('group') { should cmp 'nginx' }
   its('content') { should match %r{include /etc/nginx/sites-available/test-include_include\.conf;} }
-  its('content') {  should match /server_name test-cookbook-include-template\.osuosl\.org;$/ }
+  its('content') { should match /server_name test-cookbook-include-template\.osuosl\.org;$/ }
 end
 
 describe file(::File.join(conf_dir, 'test_include.conf')) do
