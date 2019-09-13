@@ -35,6 +35,7 @@ suites:
             key_file: test.osuosl.org.key
             owner: nginx
             group: nginx
+    verifier: inspec
   - name: cookbook-test
     run_list:
       - recipe[osl-nginx-test]
