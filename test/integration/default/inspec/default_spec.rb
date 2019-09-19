@@ -20,3 +20,10 @@ describe iptables do
   it { should have_rule('-A http -p tcp -m tcp --dport 443 -j ACCEPT') }
   it { should have_rule('-N http') }
 end
+
+describe ip6tables do
+  it { should have_rule('-A INPUT -j http') }
+  it { should have_rule('-A http -p tcp -m tcp --dport 80 -j ACCEPT') }
+  it { should have_rule('-A http -p tcp -m tcp --dport 443 -j ACCEPT') }
+  it { should have_rule('-N http') }
+end
