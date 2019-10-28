@@ -9,6 +9,8 @@ provisioner:
     osl-nginx:
       hostname: test.osuosl.org
 
+verifier: inspec
+
 suites:
   - name: default
     run_list:

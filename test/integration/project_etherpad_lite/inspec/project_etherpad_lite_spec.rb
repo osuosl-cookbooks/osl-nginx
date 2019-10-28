@@ -1,7 +1,3 @@
-require 'serverspec'
-
-set :backend, :exec
-
 # Dependencies installed
 describe package('nginx') do
   it { should be_installed }
@@ -12,10 +8,8 @@ describe service('nginx') do
   it { should be_running }
 end
 
-%w(80).each do |p|
-  describe port(p) do
-    it { should be_listening }
-  end
+describe port(80) do
+  it { should be_listening }
 end
 
 %w(
