@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+3.1.0 (2019-10-30)
+------------------
+- Chef 14 compatibility fixes
+
 3.0.1 (2018-10-22)
 ------------------
 - Remove server block for SSL on etherpad-lite
