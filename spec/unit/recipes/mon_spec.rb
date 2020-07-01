@@ -18,7 +18,7 @@ describe 'osl-nginx::mon' do
           source: 'munin/nginx.erb',
           owner: 'root',
           group: 'root',
-          mode: 0644
+          mode: '0644'
         )
       end
     end
