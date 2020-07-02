@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: osl-nginx
+# Cookbook:: osl-nginx
 # Recipe:: mon
 #
-# Copyright (C) 2014, Oregon State University
+# Copyright:: 2014-2020, Oregon State University
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ template ::File.join(node['munin']['basedir'], 'plugin-conf.d/nginx') do
   source 'munin/nginx.erb'
   owner 'root'
   group 'root'
-  mode 0644
+  mode '0644'
 end
 
 munin_plugin 'nginx_request'
