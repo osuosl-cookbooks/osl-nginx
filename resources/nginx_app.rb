@@ -1,4 +1,5 @@
 resource_name :nginx_app
+provides :nginx_app
 
 default_action :create
 
