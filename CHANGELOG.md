@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+3.3.0 (2020-09-04)
+------------------
+- Chef 16 Fixes
+
 3.2.0 (2020-07-02)
 ------------------
 - Chef 15 fixes
