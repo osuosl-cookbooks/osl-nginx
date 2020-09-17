@@ -17,10 +17,14 @@
 # limitations under the License.
 #
 include_recipe 'osl-nrpe::check_http'
-include_recipe 'nginx::http_stub_status_module'
+# include_recipe 'nginx::http_stub_status_module'
 include_recipe 'osl-munin::client'
 
-template ::File.join(node['munin']['basedir'], 'plugin-conf.d/nginx') do
+directory '/etc/munin/plugins' do
+  recursive true
+end
+
+template ::File.join(node['munin']['basedir'], 'plugins/nginx') do
   source 'munin/nginx.erb'
   owner 'root'
   group 'root'

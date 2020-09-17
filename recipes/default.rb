@@ -18,6 +18,4 @@
 #
 include_recipe 'firewall::http'
 
-node['osl-nginx']['recipes'].each do |recipe|
-  include_recipe "chef_nginx::#{recipe}"
-end
+nginx_install 'repo'
