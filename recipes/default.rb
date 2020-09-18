@@ -24,11 +24,3 @@ nginx_install 'repo'
 service 'nginx' do
   action :nothing
 end
-
-# TODO: Let's remove CentOS 6 as soon as we can
-if node['platform']['version'].to_i < 7
-  package 'nginx' do
-    notifies :restart, 'service[nginx]'
-    action [:remove, :install]
-  end
-end

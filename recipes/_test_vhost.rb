@@ -1,3 +1,6 @@
+# Expands size of server name hash buckets
+node.default['nginx']['server_names_hash_bucket_size'] = 128
+
 nginx_app 'test.osuosl.org' do
   server_aliases ['test1.osuosl.org', 'test2.osuosl.org']
   directory '/var/www/test.osuosl.org'

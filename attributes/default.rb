@@ -40,5 +40,3 @@ default['osl-nginx']['ssl_ciphers'] = %w(
   DES-CBC3-SHA
   !DSS
 )
-
-default['nginx']['server_names_hash_bucket_size'] = 128

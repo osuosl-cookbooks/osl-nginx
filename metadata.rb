@@ -15,5 +15,4 @@ depends          'nginx', '~> 10.3.0'
 depends          'osl-munin'
 depends          'osl-nrpe'
 
-supports         'centos', '~> 6.0'
 supports         'centos', '~> 7.0'
