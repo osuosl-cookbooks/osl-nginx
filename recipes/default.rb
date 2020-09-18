@@ -20,7 +20,7 @@ include_recipe 'firewall::http'
 
 nginx_install 'repo'
 
-#make this availible for notify statements
+# make this availible for notify statements
 service 'nginx' do
   action :nothing
 end
