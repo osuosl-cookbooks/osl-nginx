@@ -25,7 +25,7 @@ service 'nginx' do
   action :nothing
 end
 
-# LETS REMOVE CENTOS 6 AS SOON AS WE CAN *o* this is so weird *o*
+# TODO: Let's remove CentOS 6 as soon as we can
 if node['platform']['version'].to_i < 7
   package 'nginx' do
     notifies :restart, 'service[nginx]'
