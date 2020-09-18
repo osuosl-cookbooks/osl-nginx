@@ -18,6 +18,17 @@
 #
 include_recipe 'firewall::http'
 
-node['osl-nginx']['recipes'].each do |recipe|
-  include_recipe "chef_nginx::#{recipe}"
+nginx_install 'repo'
+
+#make this availible for notify statements
+service 'nginx' do
+  action :nothing
+end
+
+# LETS REMOVE CENTOS 6 AS SOON AS WE CAN *o* this is so weird *o*
+if node['platform']['version'].to_i < 7
+  package 'nginx' do
+    notifies :restart, 'service[nginx]'
+    action [:remove, :install]
+  end
 end

@@ -1,5 +1,5 @@
 describe file('/etc/munin/plugin-conf.d/nginx') do
-  its('content') { should include 'env.url http://localhost:8090/nginx_status' }
+  its('content') { should match %r{env.url http://localhost:8090/nginx_status} }
 end
 
 %w(request status memory).each do |c|
