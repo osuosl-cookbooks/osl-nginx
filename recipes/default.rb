@@ -18,6 +18,9 @@
 #
 include_recipe 'firewall::http'
 
-node['osl-nginx']['recipes'].each do |recipe|
-  include_recipe "chef_nginx::#{recipe}"
+nginx_install 'repo'
+
+# make this availible for notify statements
+service 'nginx' do
+  action :nothing
 end

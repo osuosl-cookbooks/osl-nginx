@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 include_recipe 'osl-nginx'
-include_recipe 'nginx::http_stub_status_module'
 
 nginx_app 'etherpad-lite.osuosl.org' do
   template 'etherpad/etherpad-lite.osuosl.org.erb'

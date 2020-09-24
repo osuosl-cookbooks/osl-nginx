@@ -10,6 +10,15 @@ describe 'osl-nginx::default' do
       it 'converges successfully' do
         expect { chef_run }.to_not raise_error
       end
+      it do
+        expect(chef_run).to install_nginx_install('repo')
+      end
+      it do
+        expect(chef_run).to nothing_service('nginx')
+      end
+      it do
+        expect(chef_run).to nothing_service('nginx')
+      end
     end
   end
 end
