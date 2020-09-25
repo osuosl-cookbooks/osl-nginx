@@ -19,7 +19,7 @@
 include_recipe 'logrotate'
 
 logrotate_app 'nginx' do
-  path "#{node['nginx']['log_dir']}/*/*/*.log"
+  path "#{nginx_log_dir}/*/*/*.log"
   frequency 'daily'
-  postrotate "[ ! -f #{node['nginx']['pid']} ] || kill -USR1 `cat #{node['nginx']['pid']}`"
+  postrotate "[ ! -f #{nginx_pid_file} ] || kill -USR1 `cat #{nginx_pid_file}`"
 end

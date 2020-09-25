@@ -12,7 +12,7 @@ server {
   <% end %>
   <% if @params[:include_config] then  %>
 
-  include <%= "#{node['nginx']['dir']}/sites-available/#{@params[:include_name] || @params[:name]}_include.conf" %>;
+  include <%= "#{@nginx_dir}/sites-available/#{@params[:include_name] || @params[:name]}_include.conf" %>;
   <% end %>
   <% if @params[:directive_http] %>
 
@@ -22,8 +22,8 @@ server {
   <% end %>
   <% if !@params[:custom_logs] then %>
 
-  access_log <%= "#{node['nginx']['log_dir']}/#{@params[:name]}/access/access.log" %>;
-  error_log <%= "#{node['nginx']['log_dir']}/#{@params[:name]}/error/error.log" %>;
+  access_log <%= "#{@nginx_log_dir}/#{@params[:name]}/access/access.log" %>;
+  error_log <%= "#{@nginx_log_dir}/#{@params[:name]}/error/error.log" %>;
   <% end %>
 }
 
@@ -42,7 +42,7 @@ server {
   ssl_certificate_key <%= @params[:cert_key] %>;
   <% if @params[:include_config] then  %>
 
-  include <%= "#{node['nginx']['dir']}/sites-available/#{@params[:include_name] || @params[:name]}_include.conf" %>;
+  include <%= "#{@nginx_dir}/sites-available/#{@params[:include_name] || @params[:name]}_include.conf" %>;
   <% end %>
   <% if @params[:directive_https] %>
 
@@ -52,8 +52,8 @@ server {
   <% end %>
   <% if !@params[:custom_logs] then %>
 
-  access_log <%= "#{node['nginx']['log_dir']}/#{@params[:name]}/access/access.log" %>;
-  error_log <%= "#{node['nginx']['log_dir']}/#{@params[:name]}/error/error.log" %>;
+  access_log <%= "#{@nginx_log_dir}/#{@params[:name]}/access/access.log" %>;
+  error_log <%= "#{@nginx_log_dir}/#{@params[:name]}/error/error.log" %>;
   <% end %>
 }
 <% end %>
