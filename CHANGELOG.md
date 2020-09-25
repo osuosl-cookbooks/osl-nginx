@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+4.0.1 (2020-09-25)
+------------------
+- Use library helpers instead of attributes which no longer exist
+
 4.0.0 (2020-09-24)
 ------------------
 - Update to support nginx 10.x
