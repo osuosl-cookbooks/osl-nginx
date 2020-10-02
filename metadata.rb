@@ -11,7 +11,7 @@ version          '4.0.1'
 depends          'certificate'
 depends          'firewall'
 depends          'logrotate'
-depends          'nginx', '~> 10.3.0'
+depends          'nginx', '~> 10.3.2'
 depends          'osl-munin'
 depends          'osl-nrpe'
 
