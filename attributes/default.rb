@@ -40,18 +40,3 @@ default['osl-nginx']['ssl_ciphers'] = %w(
   DES-CBC3-SHA
   !DSS
 )
-
-override['nrpe']['packages'] = %w(
-  nrpe
-  nrpe-selinux
-  nagios-plugins
-  nagios-plugins-disk
-  nagios-plugins-dummy
-  nagios-plugins-load
-  nagios-plugins-mailq
-  nagios-plugins-nrpe
-  nagios-plugins-ntp
-  nagios-plugins-procs
-  nagios-plugins-swap
-  nagios-plugins-users
-)
