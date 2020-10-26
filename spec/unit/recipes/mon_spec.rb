@@ -13,13 +13,20 @@ describe 'osl-nginx::mon' do
         expect { chef_run }.to_not raise_error
       end
 
-      it do
-        expect(chef_run).to create_template('/etc/munin/plugin-conf.d/nginx').with(
-          source: 'munin/nginx.erb',
-          owner: 'root',
-          group: 'root',
-          mode: '0644'
-        )
+      case p
+      when CENTOS_7
+        it do
+          expect(chef_run).to create_template('/etc/munin/plugin-conf.d/nginx').with(
+            source: 'munin/nginx.erb',
+            owner: 'root',
+            group: 'root',
+            mode: '0644'
+          )
+        end
+      when CENTOS_8
+        it do
+          expect(chef_run).to_not create_template('/etc/munin/plugin-conf.d/nginx')
+        end
       end
     end
   end

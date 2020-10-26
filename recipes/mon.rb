@@ -17,19 +17,22 @@
 # limitations under the License.
 #
 include_recipe 'osl-nrpe::check_http'
-include_recipe 'osl-munin::client'
 
-directory '/etc/munin/plugins' do
-  recursive true
+if node['platform_version'].to_i < 8
+  include_recipe 'osl-munin::client'
+
+  directory '/etc/munin/plugins' do
+    recursive true
+  end
+
+  template ::File.join(node['munin']['basedir'], 'plugin-conf.d/nginx') do
+    source 'munin/nginx.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
+  end
+
+  munin_plugin 'nginx_request'
+  munin_plugin 'nginx_status'
+  munin_plugin 'nginx_memory'
 end
-
-template ::File.join(node['munin']['basedir'], 'plugin-conf.d/nginx') do
-  source 'munin/nginx.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-end
-
-munin_plugin 'nginx_request'
-munin_plugin 'nginx_status'
-munin_plugin 'nginx_memory'

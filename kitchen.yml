@@ -22,8 +22,7 @@ suites:
     run_list:
       - recipe[osl-nginx::default]
       - recipe[osl-nginx::mon]
-    excludes:
-      - centos-8
+    multiple_converge: 2
   - name: vhost # ohai_plugin[nginx] used in recipe chef_nginx creates idempotency issue
     run_list:
       - recipe[osl-nginx::default]
