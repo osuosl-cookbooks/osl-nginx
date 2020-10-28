@@ -6,7 +6,7 @@ source_url       'https://github.com/osuosl-cookbooks/osl-nginx'
 license          'Apache-2.0'
 chef_version     '>= 14.0'
 description      'Installs/Configures osl-nginx'
-version          '4.0.2'
+version          '4.1.0'
 
 depends          'certificate'
 depends          'firewall'

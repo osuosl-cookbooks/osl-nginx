@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+4.1.0 (2020-10-28)
+------------------
+- CentOS 8 support
+
 4.0.2 (2020-10-02)
 ------------------
 - Bump to nginx 10.3.2
