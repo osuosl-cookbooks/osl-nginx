@@ -16,3 +16,4 @@ depends          'osl-munin'
 depends          'osl-nrpe'
 
 supports         'centos', '~> 7.0'
+supports         'centos', '~> 8.0'
