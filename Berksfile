@@ -8,5 +8,6 @@ cookbook 'munin', git: 'git@github.com:osuosl-cookbooks/munin.git'
 cookbook 'osl-nrpe', git: 'git@github.com:osuosl-cookbooks/osl-nrpe'
 cookbook 'osl-nginx-test', path: 'test/cookbooks/osl-nginx-test'
 cookbook 'osl-selinux', git: 'git@github.com:osuosl-cookbooks/osl-selinux'
+cookbook 'osl-repos', git: 'git@github.com:osuosl-cookbooks/osl-repos'
 
 metadata
