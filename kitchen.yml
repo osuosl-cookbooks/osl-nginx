@@ -22,6 +22,7 @@ suites:
     run_list:
       - recipe[osl-nginx::default]
       - recipe[osl-nginx::mon]
+      - recipe[osl-nginx-test::default_site]
   - name: vhost # ohai_plugin[nginx] used in recipe chef_nginx creates idempotency issue
     run_list:
       - recipe[osl-nginx::default]

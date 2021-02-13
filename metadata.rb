@@ -12,7 +12,6 @@ depends          'certificate'
 depends          'firewall'
 depends          'logrotate'
 depends          'nginx', '~> 10.3.2'
-depends          'osl-munin'
 depends          'osl-nrpe'
 
 supports         'centos', '~> 7.0'
