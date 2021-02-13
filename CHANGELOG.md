@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+4.2.0 (2021-02-13)
+------------------
+- Deprovision etherpad-lite
+
 4.1.0 (2020-10-28)
 ------------------
 - CentOS 8 support
