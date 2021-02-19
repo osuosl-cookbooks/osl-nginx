@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+4.3.0 (2021-02-19)
+------------------
+- Remove munin
+
 4.2.0 (2021-02-13)
 ------------------
 - Deprovision etherpad-lite
