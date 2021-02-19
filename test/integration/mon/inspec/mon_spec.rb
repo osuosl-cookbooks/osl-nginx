@@ -1,11 +1,4 @@
-if os.release.to_i < 8
-  describe file('/etc/munin/plugin-conf.d/nginx') do
-    its('content') { should match %r{env.url http://localhost:8090/nginx_status} }
-  end
-
-  %w(request status memory).each do |c|
-    describe file("/etc/munin/plugins/nginx_#{c}") do
-      it { should be_linked_to "/usr/share/munin/plugins/nginx_#{c}" }
-    end
-  end
+describe command '/usr/lib64/nagios/plugins/check_nrpe -H 127.0.0.1 -c check_http' do
+  its('exit_status') { should eq 0 }
+  its('stdout') { should match /HTTP OK/ }
 end
