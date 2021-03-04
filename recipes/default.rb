@@ -16,7 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'firewall::http'
+
+osl_firewall_port 'http'
 
 nginx_install 'osuosl' do
   source 'repo'
