@@ -18,9 +18,25 @@
 #
 include_recipe 'firewall::http'
 
-nginx_install 'repo'
+nginx_install 'osuosl' do
+  source 'repo'
+end
 
-# make this availible for notify statements
-service 'nginx' do
-  action :nothing
+nginx_config 'osuosl' do
+  notifies :restart, 'nginx_service[osuosl]', :delayed
+end
+
+nginx_service 'osuosl' do
+  action :enable
+  delayed_action :start
+end
+
+directory "#{nginx_dir}/includes.d"
+
+# TODO(ramereth): Remove after this has been deployed
+%w(sites-available sites-enabled).each do |d|
+  directory "#{nginx_dir}/#{d}" do
+    recursive true
+    action :delete
+  end
 end
