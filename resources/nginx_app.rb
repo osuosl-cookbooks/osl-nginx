@@ -39,7 +39,7 @@ action :create do
   end
 
   if new_resource.include_config
-    vhost_include = ::File.join(nginx_dir, 'sites-available', "#{new_resource.include_name}_include.conf")
+    vhost_include = ::File.join(nginx_dir, 'includes.d', "#{new_resource.include_name}_include.conf")
 
     case new_resource.include_resource
     when 'cookbook_file'
@@ -50,8 +50,8 @@ action :create do
         group nginx_user
         mode '0644'
 
-        if ::File.exist?(::File.join(nginx_dir, 'sites-enabled', "#{new_resource.include_name}.conf"))
-          notifies :reload, 'service[nginx]'
+        if ::File.exist?(::File.join(nginx_dir, 'includes.d', "#{new_resource.include_name}.conf"))
+          notifies :reload, 'nginx_service[osuosl]'
         end
       end
 
@@ -63,8 +63,8 @@ action :create do
         group nginx_user
         mode '0644'
 
-        if ::File.exist?(::File.join(nginx_dir, 'sites-enabled', "#{new_resource.include_name}.conf"))
-          notifies :reload, 'service[nginx]'
+        if ::File.exist?(::File.join(nginx_dir, 'includes.d', "#{new_resource.include_name}.conf"))
+          notifies :reload, 'nginx_service[osuosl]'
         end
       end
     else
@@ -72,30 +72,15 @@ action :create do
     end
   end
 
-  declare_resource(:template, "#{nginx_dir}/sites-available/#{new_resource.name}.conf") do
-    source new_resource.template
+  nginx_site new_resource.name do
     cookbook new_resource.cookbook
-    owner nginx_user
-    group nginx_user
-    mode '0644'
+    template new_resource.template
     variables(
       server_aliases: new_resource.server_aliases,
       nginx_log_dir: nginx_log_dir,
       nginx_dir: nginx_dir,
       params: all_params
     )
-
-    if ::File.exist?(::File.join(nginx_dir, 'sites-enabled', "#{new_resource.name}.conf"))
-      notifies :reload, 'service[nginx]'
-    end
-  end
-
-  nginx_site "#{new_resource.name}.conf" do
-    if new_resource.enable
-      action :enable
-    else
-      action :disable
-    end
   end
 end
 

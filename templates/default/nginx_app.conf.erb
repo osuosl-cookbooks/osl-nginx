@@ -12,7 +12,7 @@ server {
   <% end %>
   <% if @params[:include_config] then  %>
 
-  include <%= "#{@nginx_dir}/sites-available/#{@params[:include_name] || @params[:name]}_include.conf" %>;
+  include <%= "#{@nginx_dir}/includes.d/#{@params[:include_name] || @params[:name]}_include.conf" %>;
   <% end %>
   <% if @params[:directive_http] %>
 
@@ -42,7 +42,7 @@ server {
   ssl_certificate_key <%= @params[:cert_key] %>;
   <% if @params[:include_config] then  %>
 
-  include <%= "#{@nginx_dir}/sites-available/#{@params[:include_name] || @params[:name]}_include.conf" %>;
+  include <%= "#{@nginx_dir}/includes.d/#{@params[:include_name] || @params[:name]}_include.conf" %>;
   <% end %>
   <% if @params[:directive_https] %>
 

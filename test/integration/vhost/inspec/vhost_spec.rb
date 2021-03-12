@@ -16,10 +16,10 @@ end
   end
 end
 
-conf_dir = '/etc/nginx/sites-available'
+conf_dir = '/etc/nginx/conf.http.d'
+include_dir = '/etc/nginx/includes.d'
 
 describe file(::File.join(conf_dir, 'test.osuosl.org.conf')) do
-  its('mode') { should cmp '0644' }
   its('owner') { should cmp 'nginx' }
   its('group') { should cmp 'nginx' }
   its('content') do
@@ -34,45 +34,43 @@ describe file(::File.join(conf_dir, 'test.osuosl.org.conf')) do
 end
 
 describe file(::File.join(conf_dir, 'test-include.osuosl.org.conf')) do
-  its('mode') { should cmp '0644' }
   its('owner') { should cmp 'nginx' }
   its('group') { should cmp 'nginx' }
   its('content') do
-    should match %r{include /etc/nginx/sites-available/test-include\.osuosl\.org_include\.conf;}
+    should match %r{include /etc/nginx/includes.d/test-include\.osuosl\.org_include\.conf;}
   end
   its('content') { should match /server_name test-include\.osuosl\.org;$/ }
 end
 
 describe file(::File.join(conf_dir, 'test-include-name.osuosl.org.conf')) do
-  its('mode') { should cmp '0644' }
   its('owner') { should cmp 'nginx' }
   its('group') { should cmp 'nginx' }
   its('content') do
-    should match %r{include /etc/nginx/sites-available/test_include\.conf;}
+    should match %r{include /etc/nginx/includes.d/test_include\.conf;}
   end
   its('content') { should match /server_name test-include-name\.osuosl\.org;$/ }
 end
 
-describe file(::File.join(conf_dir, 'test_include.conf')) do
+describe file(::File.join(include_dir, 'test_include.conf')) do
   its('mode') { should cmp '0644' }
   its('owner') { should cmp 'nginx' }
   its('group') { should cmp 'nginx' }
   its('content') { should match /test-include-name/ }
 end
 
-describe file(::File.join(conf_dir, 'test-include.osuosl.org_include.conf')) do
+describe file(::File.join(include_dir, 'test-include.osuosl.org_include.conf')) do
   its('mode') { should cmp '0644' }
   its('owner') { should cmp 'nginx' }
   its('group') { should cmp 'nginx' }
   its('content') { should match /test-include-hostname/ }
 end
 
-%w(
-  test
-  test-include
-  test-include-name
-).each do |f|
-  describe file("/etc/nginx/sites-enabled/#{f}.osuosl.org.conf") do
-    it { should be_linked_to "/etc/nginx/sites-available/#{f}.osuosl.org.conf" }
+describe file '/etc/nginx/conf.http.d/list.conf' do
+  %w(
+    test
+    test-include
+    test-include-name
+  ).each do |f|
+    its('content') { should match %r{^include /etc/nginx/conf.http.d/#{f}.osuosl.org.conf;$} }
   end
 end
