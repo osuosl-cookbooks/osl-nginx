@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+5.1.0 (2021-04-06)
+------------------
+- Update Chef dependency to >= 16
+
 5.0.0 (2021-03-12)
 ------------------
 - Update to use nginx 11.4 cookbook
