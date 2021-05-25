@@ -9,9 +9,9 @@ description      'Installs/Configures osl-nginx'
 version          '5.1.0'
 
 depends          'certificate'
-depends          'firewall'
 depends          'logrotate'
 depends          'nginx', '~> 11.4.0'
+depends          'osl-firewall'
 depends          'osl-nrpe'
 
 supports         'centos', '~> 7.0'
