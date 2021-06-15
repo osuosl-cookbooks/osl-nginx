@@ -9,7 +9,7 @@ description      'Installs/Configures osl-nginx'
 version          '6.0.0'
 
 depends          'certificate'
-depends          'logrotate'
+depends          'logrotate', '~> 2.3.0'
 depends          'nginx', '~> 11.4.0'
 depends          'osl-firewall'
 depends          'osl-nrpe'

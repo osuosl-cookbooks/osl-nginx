@@ -1,5 +1,6 @@
 resource_name :nginx_app
 provides :nginx_app
+unified_mode true
 
 default_action :create
 
