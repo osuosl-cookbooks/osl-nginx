@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+Chef::DSL::Recipe.include(Nginx::Cookbook::Helpers)
+
 osl_firewall_port 'http'
 
 nginx_install 'osuosl' do
@@ -33,11 +35,3 @@ nginx_service 'osuosl' do
 end
 
 directory "#{nginx_dir}/includes.d"
-
-# TODO(ramereth): Remove after this has been deployed
-%w(sites-available sites-enabled).each do |d|
-  directory "#{nginx_dir}/#{d}" do
-    recursive true
-    action :delete
-  end
-end

@@ -16,10 +16,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 include_recipe 'logrotate'
 
+Chef::DSL::Recipe.include(Nginx::Cookbook::Helpers)
+
+log_dir  = nginx_log_dir
+pid_file = nginx_pid_file
+
 logrotate_app 'nginx' do
-  path "#{nginx_log_dir}/*/*/*.log"
+  path "#{log_dir}/*/*/*.log"
   frequency 'daily'
-  postrotate "[ ! -f #{nginx_pid_file} ] || kill -USR1 `cat #{nginx_pid_file}`"
+  postrotate "[ ! -f #{pid_file} ] || kill -USR1 `cat #{pid_file}`"
 end

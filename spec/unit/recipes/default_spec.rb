@@ -25,14 +25,6 @@ describe 'osl-nginx::default' do
       it { expect(chef_run).to start_nginx_service('osuosl') }
 
       it { expect(chef_run).to create_directory('/etc/nginx/includes.d') }
-
-      %w(sites-available sites-enabled).each do |d|
-        it do
-          expect(chef_run).to delete_directory("/etc/nginx/#{d}").with(
-            recursive: true
-          )
-        end
-      end
     end
   end
 end
