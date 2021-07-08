@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-Chef::DSL::Recipe.include(Nginx::Cookbook::Helpers)
+Chef::DSL::Universal.include(Nginx::Cookbook::Helpers)
 
 osl_firewall_port 'http'
 
