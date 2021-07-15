@@ -16,7 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 include_recipe 'logrotate'
+
+Chef::DSL::Universal.include(Nginx::Cookbook::Helpers)
 
 logrotate_app 'nginx' do
   path "#{nginx_log_dir}/*/*/*.log"

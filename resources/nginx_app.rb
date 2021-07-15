@@ -23,6 +23,8 @@ property :server_aliases, Array, default: []
 property :ssl_enable, [true, false], default: false
 property :template, String, default: 'nginx_app.conf.erb'
 
+include  Nginx::Cookbook::Helpers
+
 action :create do
   include_recipe 'osl-nginx::default'
 
