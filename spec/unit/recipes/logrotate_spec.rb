@@ -14,8 +14,12 @@ describe 'osl-nginx::logrotate' do
       end
 
       it do
+        expect(chef_run).to upgrade_logrotate_package('osl-nginx')
+      end
+
+      it do
         expect(chef_run).to enable_logrotate_app('nginx').with(
-          path: '/var/log/nginx/*/*/*.log',
+          path: '"/var/log/nginx/*/*/*.log"',
           frequency: 'daily',
           postrotate: '[ ! -f /run/nginx.pid ] || kill -USR1 `cat /run/nginx.pid`'
         )

@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'logrotate'
+logrotate_package 'osl-nginx'
 
 Chef::DSL::Universal.include(Nginx::Cookbook::Helpers)
 
