@@ -10,7 +10,7 @@ version          '6.3.0'
 
 depends          'certificate'
 depends          'logrotate', '~> 3.0.0'
-depends          'nginx', '~> 12.0.0'
+depends          'nginx', '~> 12.2.0'
 depends          'osl-firewall'
 depends          'osl-nrpe'
 
