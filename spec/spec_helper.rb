@@ -13,7 +13,7 @@ ALMA_8 = {
 
 ALL_PLATFORMS = [
   CENTOS_7,
-  ALMA_8
+  ALMA_8,
 ].freeze
 
 RSpec.configure do |config|
