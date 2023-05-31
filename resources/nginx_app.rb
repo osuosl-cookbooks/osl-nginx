@@ -50,7 +50,7 @@ action :create do
         source "#{node['osl-nginx']['hostname']}/#{new_resource.include_name}.conf"
         cookbook new_resource.cookbook_include unless new_resource.cookbook_include.nil?
         owner nginx_user
-        group nginx_user
+        group nginx_group
         mode '0644'
 
         if ::File.exist?(::File.join(nginx_dir, 'includes.d', "#{new_resource.include_name}.conf"))
@@ -59,11 +59,11 @@ action :create do
       end
 
     when 'template'
-      declare_resource(:template, vhost_include) do
+      template vhost_include do
         source "#{new_resource.include_name}.conf.erb"
         cookbook new_resource.cookbook_include unless new_resource.cookbook_include.nil?
         owner nginx_user
-        group nginx_user
+        group nginx_group
         mode '0644'
 
         if ::File.exist?(::File.join(nginx_dir, 'includes.d', "#{new_resource.include_name}.conf"))
@@ -78,6 +78,9 @@ action :create do
   nginx_site new_resource.name do
     cookbook new_resource.cookbook
     template new_resource.template
+    owner nginx_user
+    group nginx_group
+    mode '0644'
     variables(
       server_aliases: new_resource.server_aliases,
       nginx_log_dir: nginx_log_dir,
