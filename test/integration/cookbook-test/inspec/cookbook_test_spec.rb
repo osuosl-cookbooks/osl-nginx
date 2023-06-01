@@ -103,5 +103,5 @@ describe file '/etc/nginx/conf.http.d/list.conf' do
 end
 
 describe file '/etc/nginx/conf.d/test-kitchen.conf' do
-  its('content') { should match "server_names_hash_bucket_size 128" }
+  its('content') { should match 'server_names_hash_bucket_size 128' }
 end
