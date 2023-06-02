@@ -19,6 +19,23 @@
 
 Chef::DSL::Universal.include(Nginx::Cookbook::Helpers)
 
+include_recipe 'osl-selinux'
+
+selinux_module 'osl-nginx' do
+  content <<~EOM
+    module osl-nginx 1.0;
+
+    require {
+            type httpd_t;
+            type var_run_t;
+            class file { unlink open read write };
+    }
+
+    #============= httpd_t ==============
+    allow httpd_t var_run_t:file { unlink open read write };
+  EOM
+end
+
 osl_firewall_port 'http'
 
 nginx_install 'osuosl' do

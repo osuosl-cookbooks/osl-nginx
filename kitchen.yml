@@ -11,8 +11,13 @@ provisioner:
       disabled: true
     osl-nginx:
       hostname: test.osuosl.org
+    osl-selinux:
+      enforcing: true
 
-verifier: inspec
+verifier:
+  name: inspec
+  inputs:
+    selinux: enforcing
 
 suites:
   - name: default

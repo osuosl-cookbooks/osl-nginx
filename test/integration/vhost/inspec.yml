@@ -1,0 +1,5 @@
+---
+name: vhost
+depends:
+  - name: osuosl-baseline
+    git: https://github.com/osuosl/osuosl-baseline
