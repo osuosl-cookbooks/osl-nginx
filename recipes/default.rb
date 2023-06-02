@@ -2,7 +2,7 @@
 # Cookbook:: osl-nginx
 # Recipe:: default
 #
-# Copyright:: 2014-2022, Oregon State University
+# Copyright:: 2014-2023, Oregon State University
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,23 @@
 #
 
 Chef::DSL::Universal.include(Nginx::Cookbook::Helpers)
+
+include_recipe 'osl-selinux'
+
+selinux_module 'osl-nginx' do
+  content <<~EOM
+    module osl-nginx 1.0;
+
+    require {
+            type httpd_t;
+            type var_run_t;
+            class file { unlink open read write };
+    }
+
+    #============= httpd_t ==============
+    allow httpd_t var_run_t:file { unlink open read write };
+  EOM
+end
 
 osl_firewall_port 'http'
 
