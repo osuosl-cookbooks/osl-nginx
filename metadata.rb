@@ -16,4 +16,4 @@ depends          'osl-nrpe'
 depends          'osl-selinux'
 
 supports         'centos', '~> 7.0'
-supports         'centos_stream', '~> 8.0'
+supports         'almalinux', '~> 8.0'
