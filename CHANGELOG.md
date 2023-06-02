@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+6.4.0 (2023-06-02)
+------------------
+- Upgrade Nginx dependency to patch converge error
+
 6.3.0 (2021-11-02)
 ------------------
 - Update logrotate to 3.0.0
