@@ -19,6 +19,11 @@ control 'default' do
     it { should be_listening }
   end
 
+  describe file '/etc/nginx/dhparam.pem' do
+    it { should exist }
+    its('content') { should match %r{MIICCAKCAgEA1l98/amgPcQzuYTI9HyFjRc2Qy6DVG8CXM999Fh0NK04r6ZPGKgj} }
+  end
+
   describe iptables do
     it { should have_rule('-A INPUT -j http') }
     it { should have_rule('-A http -p tcp -m tcp --dport 80 -j ACCEPT') }
