@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+6.5.0 (2023-07-24)
+------------------
+- Add a default DH parameters file
+
 6.4.0 (2023-06-02)
 ------------------
 - Upgrade Nginx dependency to patch converge error
