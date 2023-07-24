@@ -24,5 +24,9 @@ end
 shared_context 'common_stubs' do
   before do
     stub_command('which nginx')
+    stub_data_bag_item('nginx', 'dhparam').and_return(
+      'id' => 'dhparam',
+      'key' => 'dh param key'
+    )
   end
 end

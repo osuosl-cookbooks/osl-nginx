@@ -51,4 +51,13 @@ nginx_service 'osuosl' do
   delayed_action :start
 end
 
+dhparam = data_bag_item('nginx', 'dhparam')
+
+file '/etc/nginx/dhparam.pem' do
+  sensitive true
+  mode '0640'
+  content dhparam['key']
+  notifies :reload, 'nginx_service[osuosl]', :delayed
+end
+
 directory "#{nginx_dir}/includes.d"

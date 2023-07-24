@@ -22,6 +22,18 @@ describe 'osl-nginx::default' do
       it { expect(chef_run).to enable_nginx_service('osuosl') }
       it { expect(chef_run).to start_nginx_service('osuosl') }
       it { expect(chef_run).to create_directory('/etc/nginx/includes.d') }
+
+      it do
+        expect(chef_run).to create_file('/etc/nginx/dhparam.pem').with(
+          content: 'dh param key',
+          mode: '0640',
+          sensitive: true
+        )
+      end
+
+      it do
+        expect(chef_run.file('/etc/nginx/dhparam.pem')).to notify('nginx_service[osuosl]').to(:reload).delayed
+      end
     end
   end
 end
