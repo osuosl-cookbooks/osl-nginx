@@ -51,9 +51,12 @@ nginx_service 'osuosl' do
   delayed_action :start
 end
 
-cookbook_file '/etc/nginx/dhparam.pem' do
+dhparam = data_bag_item('nginx', 'dhparam')
+
+file '/etc/nginx/dhparam.pem' do
   sensitive true
-  cookbook 'osl-nginx'
+  mode '0640'
+  content dhparam['key']
   notifies :reload, 'nginx_service[osuosl]', :delayed
 end
 

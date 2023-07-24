@@ -21,6 +21,7 @@ control 'default' do
 
   describe file '/etc/nginx/dhparam.pem' do
     it { should exist }
+    its('mode') { should cmp '0640' }
     its('content') { should match %r{MIICCAKCAgEA1l98/amgPcQzuYTI9HyFjRc2Qy6DVG8CXM999Fh0NK04r6ZPGKgj} }
   end
 
