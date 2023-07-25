@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+6.6.0 (2023-07-25)
+------------------
+- Various fixes
+
 6.5.0 (2023-07-24)
 ------------------
 - Add a default DH parameters file
