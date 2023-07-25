@@ -40,13 +40,6 @@ control 'cookbook-test' do
     its('content') { should match /server_name test-cookbook-name\.osuosl\.org;$/ }
   end
 
-  describe file(::File.join(conf_dir, 'test-cookbook-include.osuosl.org.conf')) do
-    its('owner') { should cmp 'nginx' }
-    its('group') { should cmp 'nginx' }
-    its('content') { should match %r{include /etc/nginx/includes.d/test_include\.conf;} }
-    its('content') { should match /server_name test-cookbook-include\.osuosl\.org;$/ }
-  end
-
   describe file(::File.join(conf_dir, 'test-cookbook-template.osuosl.org.conf')) do
     its('owner') { should cmp 'nginx' }
     its('group') { should cmp 'nginx' }
@@ -58,13 +51,6 @@ control 'cookbook-test' do
     its('group') { should cmp 'nginx' }
     its('content') { should match %r{include /etc/nginx/includes.d/test-include_include\.conf;} }
     its('content') { should match /server_name test-cookbook-include-template\.osuosl\.org;$/ }
-  end
-
-  describe file(::File.join(include_dir, 'test_include.conf')) do
-    its('mode') { should cmp '0644' }
-    its('owner') { should cmp 'nginx' }
-    its('group') { should cmp 'nginx' }
-    its('content') { should match /test-include-name/ }
   end
 
   describe file(::File.join(include_dir, 'test-cookbook_include.conf')) do
@@ -81,13 +67,6 @@ control 'cookbook-test' do
     its('content') { should match /test-cookbook/ }
   end
 
-  describe file(::File.join(include_dir, 'test_include.conf')) do
-    its('mode') { should cmp '0644' }
-    its('owner') { should cmp 'nginx' }
-    its('group') { should cmp 'nginx' }
-    its('content') { should match /test-include-name/ }
-  end
-
   describe file(::File.join(include_dir, 'test-include_include.conf')) do
     its('mode') { should cmp '0644' }
     its('owner') { should cmp 'nginx' }
@@ -98,8 +77,6 @@ control 'cookbook-test' do
   describe file '/etc/nginx/conf.http.d/list.conf' do
     %w(
       test-cookbook
-      test-cookbook-include
-      test-cookbook-include
       test-cookbook-template
       test-cookbook-include-template
     ).each do |f|

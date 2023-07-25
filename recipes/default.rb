@@ -46,6 +46,10 @@ nginx_config 'osuosl' do
   notifies :restart, 'nginx_service[osuosl]', :delayed
 end
 
+cookbook_file '/etc/nginx/conf.d/osuosl.conf' do
+  notifies :restart, 'nginx_service[osuosl]', :delayed
+end
+
 nginx_service 'osuosl' do
   action :enable
   delayed_action :start
@@ -61,3 +65,11 @@ file '/etc/nginx/dhparam.pem' do
 end
 
 directory "#{nginx_dir}/includes.d"
+
+logrotate_package 'osl-nginx'
+
+logrotate_app 'nginx' do
+  path "#{nginx_log_dir}/*/*/*.log"
+  frequency 'daily'
+  postrotate "[ ! -f #{nginx_pid_file} ] || kill -USR1 `cat #{nginx_pid_file}`"
+end

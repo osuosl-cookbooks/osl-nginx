@@ -1,10 +1,5 @@
 include_recipe 'osl-nginx'
 
-file '/etc/nginx/conf.d/test-kitchen.conf' do
-  content 'server_names_hash_bucket_size 128;'
-  notifies :reload, 'nginx_service[osuosl]', :immediately
-end
-
 # Default app test, but pull the include config
 # (files/default/test.osuosl.org/test-cookbook.osuosl.org.conf) from the test
 # cookbook.
@@ -19,14 +14,6 @@ nginx_app 'test-cookbook-name.osuosl.org' do
   directory '/var/www/test-cookbook-name.osuosl.org'
   include_config true
   include_name 'test-cookbook'
-end
-
-# Pull the include config from the osl-nginx cookbook named 'test.conf'.
-nginx_app 'test-cookbook-include.osuosl.org' do
-  directory '/var/www/test-cookbook-include.osuosl.org'
-  include_config true
-  include_name 'test'
-  cookbook_include 'osl-nginx'
 end
 
 # Use a custom vhost template from the test cookbook. This completely replaces

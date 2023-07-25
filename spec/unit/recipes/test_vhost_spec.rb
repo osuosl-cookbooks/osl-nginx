@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe 'osl-nginx::_test_vhost' do
+describe 'osl-nginx-test::vhost' do
   ALL_PLATFORMS.each do |p|
     context "#{p[:platform]} #{p[:version]}" do
       cached(:chef_run) do

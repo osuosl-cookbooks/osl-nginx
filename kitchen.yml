@@ -1,14 +1,12 @@
 ---
 provisioner:
-  name: chef_zero
-  enforce_idempotency: false # ohai_plugin[nginx] used in recipe chef_nginx creates idempotency issue
+  name: chef_infra
+  enforce_idempotency: true
   multiple_converge: 2
   deprecations_as_errors: true
   data_bags_path: test/integration/data_bags
   encrypted_data_bag_secret_key_path: test/integration/encrypted_data_bag_secret
   attributes:
-    omnibus_updater:
-      disabled: true
     osl-nginx:
       hostname: test.osuosl.org
     osl-selinux:
@@ -28,12 +26,11 @@ suites:
       - recipe[osl-nginx::default]
       - recipe[osl-nginx::mon]
       - recipe[osl-nginx-test::default_site]
-  - name: vhost # ohai_plugin[nginx] used in recipe chef_nginx creates idempotency issue
+  - name: vhost
     run_list:
       - recipe[osl-nginx::default]
-      - recipe[osl-nginx::logrotate]
       - recipe[certificate::manage_by_attributes]
-      - recipe[osl-nginx::_test_vhost]
+      - recipe[osl-nginx-test::vhost]
     driver_config:
       user_data: userdata-vhost.txt
     attributes:

@@ -19,6 +19,8 @@ describe 'osl-nginx::default' do
       it { expect(chef_run).to install_nginx_install('osuosl').with(source: 'repo') }
       it { expect(chef_run).to create_nginx_config('osuosl') }
       it { expect(chef_run.nginx_config('osuosl')).to notify('nginx_service[osuosl]').to(:restart).delayed }
+      it { expect(chef_run).to create_cookbook_file('/etc/nginx/conf.d/osuosl.conf') }
+      it { expect(chef_run.cookbook_file('/etc/nginx/conf.d/osuosl.conf')).to notify('nginx_service[osuosl]').to(:restart).delayed }
       it { expect(chef_run).to enable_nginx_service('osuosl') }
       it { expect(chef_run).to start_nginx_service('osuosl') }
       it { expect(chef_run).to create_directory('/etc/nginx/includes.d') }
@@ -33,6 +35,18 @@ describe 'osl-nginx::default' do
 
       it do
         expect(chef_run.file('/etc/nginx/dhparam.pem')).to notify('nginx_service[osuosl]').to(:reload).delayed
+      end
+
+      it do
+        expect(chef_run).to upgrade_logrotate_package('osl-nginx')
+      end
+
+      it do
+        expect(chef_run).to enable_logrotate_app('nginx').with(
+          path: '"/var/log/nginx/*/*/*.log"',
+          frequency: 'daily',
+          postrotate: '[ ! -f /run/nginx.pid ] || kill -USR1 `cat /run/nginx.pid`'
+        )
       end
     end
   end

@@ -38,4 +38,10 @@ control 'default' do
     it { should have_rule('-A http -p tcp -m tcp --dport 443 -j ACCEPT') }
     it { should have_rule('-N http') }
   end
+
+  describe file '/etc/logrotate.d/nginx' do
+    its('content') { should match %r{"/var/log/nginx/\*/\*/\*\.log" \{} }
+    its('content') { should match /daily/ }
+    its('content') { should match %r{\[ ! -f /run/nginx\.pid \] \|\| kill -USR1 `cat /run/nginx\.pid`} }
+  end
 end
