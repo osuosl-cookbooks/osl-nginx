@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+6.6.2 (2024-05-10)
+------------------
+- Test Kitchen Config Refactor
+
 6.6.1 (2023-07-25)
 ------------------
 - Remove template-based code from file
