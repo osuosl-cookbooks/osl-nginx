@@ -3,3 +3,4 @@ name: default
 depends:
   - name: osuosl-baseline
     git: https://github.com/osuosl/osuosl-baseline
+    branch: main

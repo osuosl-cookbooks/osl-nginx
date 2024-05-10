@@ -1,6 +1,19 @@
 ---
+driver:
+  name: vagrant
+
+verifier:
+  name: inspec
+  inputs:
+    selinux: enforcing
+
+transport:
+  name: rsync
+
 provisioner:
   name: chef_infra
+  product_name: cinc
+  product_version: '17'
   enforce_idempotency: true
   multiple_converge: 2
   deprecations_as_errors: true
@@ -12,10 +25,9 @@ provisioner:
     osl-selinux:
       enforcing: true
 
-verifier:
-  name: inspec
-  inputs:
-    selinux: enforcing
+platforms:
+  - name: almalinux-8
+  - name: centos-7
 
 suites:
   - name: default

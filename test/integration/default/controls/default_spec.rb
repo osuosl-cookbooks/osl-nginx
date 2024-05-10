@@ -1,3 +1,5 @@
+docker = inspec.command('test -e /.dockerenv')
+
 include_controls 'osuosl-baseline' do
   skip_control 'ssl-baseline'
 end
@@ -30,14 +32,14 @@ control 'default' do
     it { should have_rule('-A http -p tcp -m tcp --dport 80 -j ACCEPT') }
     it { should have_rule('-A http -p tcp -m tcp --dport 443 -j ACCEPT') }
     it { should have_rule('-N http') }
-  end
+  end unless docker
 
   describe ip6tables do
     it { should have_rule('-A INPUT -j http') }
     it { should have_rule('-A http -p tcp -m tcp --dport 80 -j ACCEPT') }
     it { should have_rule('-A http -p tcp -m tcp --dport 443 -j ACCEPT') }
     it { should have_rule('-N http') }
-  end
+  end unless docker
 
   describe file '/etc/logrotate.d/nginx' do
     its('content') { should match %r{"/var/log/nginx/\*/\*/\*\.log" \{} }
