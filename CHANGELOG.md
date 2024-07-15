@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+6.7.0 (2024-07-15)
+------------------
+- Add Almalinux 9
+
 6.6.2 (2024-05-10)
 ------------------
 - Test Kitchen Config Refactor
