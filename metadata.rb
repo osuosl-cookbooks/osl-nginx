@@ -17,3 +17,4 @@ depends          'osl-selinux'
 
 supports         'centos', '~> 7.0'
 supports         'almalinux', '~> 8.0'
+supports         'almalinux', '~> 9.0'

@@ -11,9 +11,15 @@ ALMA_8 = {
   version: '8',
 }.freeze
 
+ALMA_9 = {
+  platform: 'almalinux',
+  version: '9',
+}.freeze
+
 ALL_PLATFORMS = [
   CENTOS_7,
   ALMA_8,
+  ALMA_9,
 ].freeze
 
 RSpec.configure do |config|
