@@ -27,7 +27,6 @@ provisioner:
 
 platforms:
   - name: almalinux-8
-  - name: centos-7
 
 suites:
   - name: default
