@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+6.8.0 (2024-07-17)
+------------------
+- Remove support for CentOS 7
+
 6.7.0 (2024-07-15)
 ------------------
 - Add Almalinux 9
