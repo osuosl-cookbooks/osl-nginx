@@ -13,7 +13,7 @@ transport:
 provisioner:
   name: chef_infra
   product_name: cinc
-  product_version: '17'
+  product_version: '18'
   enforce_idempotency: true
   multiple_converge: 2
   deprecations_as_errors: true
@@ -27,6 +27,8 @@ provisioner:
 
 platforms:
   - name: almalinux-8
+  - name: almalinux-9
+  - name: almalinux-10
 
 suites:
   - name: default
