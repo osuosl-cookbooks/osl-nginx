@@ -92,7 +92,7 @@ end
 
 def all_params
   this = self
-  self.class.properties(true).keys.each_with_object({}) do |prop, acc|
-    acc[prop] = this.send(prop)
+  self.class.properties(true).keys.to_h do |prop|
+    [prop, this.send(prop)]
   end
 end
