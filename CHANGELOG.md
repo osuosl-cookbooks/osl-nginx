@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+6.9.1 (2026-07-14)
+------------------
+- cinc: updated kitchen and dokken files
+
 6.9.0 (2025-08-19)
 ------------------
 - AlmaLinux 10 support
