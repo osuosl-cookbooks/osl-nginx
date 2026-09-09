@@ -4,6 +4,10 @@ osl-nginx CHANGELOG
 This file is used to list changes made in each version of the
 osl-nginx cookbook.
 
+6.9.2 (2026-09-09)
+------------------
+- chef 19 update
+
 6.9.1 (2026-07-14)
 ------------------
 - cinc: updated kitchen and dokken files
